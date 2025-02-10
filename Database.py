@@ -20,6 +20,7 @@ db.execute("""
         , firstname TEXT
         , email TEXT
         , phone TEXT
+        , password TEXT
         , iban TEXT
         , AddressID INTEGER
         , PRIMARY KEY(ID))""")
