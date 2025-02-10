@@ -1,8 +1,8 @@
 
 class Address:
-    def __init__(self, zip, aname, street, snumber):
+    def __init__(self, zip, city, street, snumber):
         self.zip=zip
-        self.aname=aname
+        self.city=city
         self.street=street
         self.snumber=snumber
         
