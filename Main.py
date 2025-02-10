@@ -16,7 +16,7 @@ Address=Address.Address
 
 def createDB():
     try:
-        
+        Database.call(["python", "Database.py"])
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except:
@@ -24,7 +24,7 @@ def createDB():
 
 def seedDB():
     try:
-        
+        Seed.call(["python", "Seed.py"])
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except:
@@ -32,7 +32,7 @@ def seedDB():
 
 def updateDB():
     try:
-        
+        UpdateDB.call(["python", "UpdateDB.py"])
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except:
@@ -41,7 +41,17 @@ def updateDB():
 
 def main():
     try:
-        
+        while True:
+            choice=input("create Database (d): \nseed Database (s): \nupdate Database (u): \ncancel (c):")
+            if choice=='d' or choice=='s'or choice=='u'or choice=='c':
+                    break
+        if choice=='d':
+            createDB()
+        elif choice=='s':
+            seedDB()
+        elif choice=='u':
+            updateDB()
+            
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except:
