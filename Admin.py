@@ -8,8 +8,6 @@ import Person
 import Customer
 import User
 import Database
-import Seed
-import UpdateDB
 
 Address=Address.Address
 Person=Person.Person
@@ -22,7 +20,9 @@ class Admin():
     def createDB():
         Database.createDB()
     def seedDB():
-        Seed.seedDB()
+        Database.seedDB()
     def updateDB():
-        UpdateDB.updateDB()
-    
+        Database.updateDB()
+    def readDB():
+        Database.readDB()
+        

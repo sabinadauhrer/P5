@@ -48,3 +48,21 @@ def createDB():
 
     db.commit()
     db.close()
+
+def seedDB():
+    db=sqlite3.connect('user.db')
+    
+    db.commit()
+    db.close()
+
+def updateDB():
+    db=sqlite3.connect('user.db')
+    
+    db.commit()
+    db.close()
+
+def readDB():
+    db=sqlite3.connect('user.db')
+    
+    db.commit()
+    db.close()
