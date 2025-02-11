@@ -15,16 +15,29 @@ def createDB():
             , PRIMARY KEY(ID))""")
 
     db.execute("""
-        CREATE TABLE User (
+        CREATE TABLE Person (
             ID INTEGER
-            , username TEXT
             , name TEXT
             , firstname TEXT
             , email TEXT
             , phone TEXT
-            , password TEXT
             , iban TEXT
             , AddressID INTEGER
+            , PRIMARY KEY(ID))""")
+
+    db.execute("""
+        CREATE TABLE Customer (
+            ID INTEGER
+            , company TEXT
+            , PersonID INTEGER
+            , PRIMARY KEY(ID))""")
+    
+    db.execute("""
+        CREATE TABLE User (
+            ID INTEGER
+            , username TEXT
+            , password TEXT
+            , PersonID INTEGER
             , PRIMARY KEY(ID))""")
 
     db.execute("""
