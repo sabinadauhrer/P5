@@ -37,18 +37,25 @@ def createDB():
             ID INTEGER
             , username TEXT
             , password TEXT
+            , adminrole INTEGER
             , PersonID INTEGER
-            , PRIMARY KEY(ID))""")
-
-    db.execute("""
-        CREATE TABLE Admin (
-            ID INTEGER
-            , UserID INTEGER
             , PRIMARY KEY(ID))""")
 
     db.commit()
     db.close()
 
+def seedroot():
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("""INSERT INTO User (
+        username,
+        password,
+        adminrole,
+        PersonID
+        ) VALUES (root, root, 1, ?);""", )
+    db.commit()
+    db.close()
+    
 def seedDB():
     db=sqlite3.connect('user.db')
     

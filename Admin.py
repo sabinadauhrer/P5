@@ -15,8 +15,9 @@ Customer=Customer.Customer
 User=User.User
 
 class Admin():
-    def __init__(self, User):
+    def __init__(self, User, adminrole):
         self.User=User
+        self.adminrole=adminrole
     def createDB():
         Database.createDB()
     def seedDB():
