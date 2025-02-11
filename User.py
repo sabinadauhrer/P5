@@ -1,14 +1,8 @@
-import Address
-Address=Address.Address
+import Person
+Person=Person.Person
 
 class User:
-    def __init__(self, username, name, firstname, email, password, phone, iban, Address):
+    def __init__(self, Person, username, password):
+        self.Person=Person
         self.username=username
-        self.name=name
-        self.firstname=firstname
-        self.email=email
         self.password=password
-        self.phone=phone
-        self.iban=iban
-        self.Address=Address
-        
