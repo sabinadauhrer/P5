@@ -23,4 +23,5 @@ def updateDB():
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except:
         print("Es ist ein Fehler aufgetreten: ", sys.exc_info()[0])
+        
 """
