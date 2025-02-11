@@ -9,8 +9,6 @@ import Customer
 import User
 import Admin
 import Database
-import Seed
-import UpdateDB
 
 Address=Address.Address
 Person=Person.Person
@@ -27,9 +25,9 @@ def main():
         if choice=='d':
             Database.createDB()
         elif choice=='s':
-            Seed.seedDB()
+            Database.seedDB()
         elif choice=='u':
-            UpdateDB.updateDB()
+            Database.updateDB()
         
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
