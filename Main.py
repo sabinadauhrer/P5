@@ -3,16 +3,20 @@ import sys
 import csv
 from csv import DictReader
 import math
+import Address
+import Person
+import Customer
 import User
 import Admin
-import Address
 import Database
 import Seed
 import UpdateDB
 
+Address=Address.Address
+Person=Person.Person
+Customer=Customer.Customer
 User=User.User
 Admin=Admin.Admin
-Address=Address.Address
 
 def main():
     try:
