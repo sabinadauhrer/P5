@@ -14,24 +14,38 @@ class Person:
         return self.name
     def setName(self, name):
         self.name=name
+    def newName(self):
+        self.name=input("Name:\n")
             
     def getFirstname(self):
         return self.firstname
     def setFirstname(self, firstname):
         self.firstname=firstname
+    def newFirstname(self):
+        self.firstname=input("Firstname:\n")
             
     def getEmail(self):
         return self.email
     def setEmail(self, email):
         self.email=email
+    def newEmail(self):
+        self.email=input("E-Mail:\n")
             
     def getPhone(self):
         return self.phone
     def setPhone(self, phone):
         self.phone=phone
+    def newPhone(self):
+        self.phone=input("Phonenumber:\n")
             
     def getIBAN(self):
         return self.iban
     def setIBAN(self, iban):
         self.iban=iban
+    def newIBAN(self):
+        self.iban=input("IBAN:\n")
     
+    def getAddress(self):
+        return self.Address
+    def setAddress(self, Address=Address):
+        self.Address=Address
