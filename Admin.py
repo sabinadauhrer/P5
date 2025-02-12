@@ -25,4 +25,26 @@ class Admin():
         Database.updateDB()
     def readDB():
         Database.readDB()
-        
+    def newUser():
+        a1=Address(
+            input("Country:\n"),
+            input("ZIP:\n"),
+            input("City:\n"),
+            input("Street:\n"),
+            input("Streetnumber:\n")
+            )
+        p1=Person(
+            input("Name:\n"),
+            input("Firstname:\n"),
+            input("E-Mail:\n"),
+            input("Phonenumber:\n"),
+            input("IBAN:\n"),
+            a1
+            )
+        u1=User(
+            input("Username:\n"),
+            input("Password:\n"),
+            p1
+            )
+        return u1,p1,a1
+    
