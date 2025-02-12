@@ -7,9 +7,9 @@ class User:
         self.password=password
         self.Person=Person
 
-    def getUserName(self):
+    def getUsername(self):
         return self.username
-    def setUserName(self, username):
+    def setUsername(self, username):
         self.username=username
     
     def getPassword(self):
