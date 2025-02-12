@@ -2,7 +2,7 @@ import Address
 Address=Address.Address
 
 class Person:
-    def __init__(self, name, firstname, email, phone, iban, Address):
+    def __init__(self, name, firstname, email, phone, iban, Address=Address):
         self.name=name
         self.firstname=firstname
         self.email=email
