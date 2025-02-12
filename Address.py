@@ -7,28 +7,28 @@ class Address:
         self.street=street
         self.snumber=snumber
     
-    def getUserName(self):
+    def getCountry(self):
         return self.country
-    def setUserName(self, country):
+    def setCountry(self, country):
         self.country=country
     
-    def getUserName(self):
+    def getZIP(self):
         return self.zip
-    def setUserName(self, zip):
+    def setZIP(self, zip):
         self.zip=zip
     
-    def getUserName(self):
+    def getCity(self):
         return self.city
-    def setUserName(self, city):
+    def setCity(self, city):
         self.city=city
     
-    def getUserName(self):
+    def getStreet(self):
         return self.street
-    def setUserName(self, street):
+    def setStreet(self, street):
         self.street=street
     
-    def getUserName(self):
+    def getSnumber(self):
         return self.snumber
-    def setUserName(self, snumber):
+    def setSnumber(self, snumber):
         self.snumber=snumber
     
