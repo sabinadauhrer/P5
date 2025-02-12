@@ -19,20 +19,20 @@ def main():
     try:
         
         a1=Address(
-                    input("Country:\n"),
-                    input("ZIP:\n"),
-                    input("City:\n"),
-                    input("Street:\n"),
-                    input("Streetnumber:\n")
-                    )
+            input("Country:\n"),
+            input("ZIP:\n"),
+            input("City:\n"),
+            input("Street:\n"),
+            input("Streetnumber:\n")
+            )
         p1=Person(
-                input("Name:\n"),
-                input("Firstname:\n"),
-                input("E-Mail:\n"),
-                input("Phonenumber:\n"),
-                input("IBAN:\n"),
-                a1
-                )
+            input("Name:\n"),
+            input("Firstname:\n"),
+            input("E-Mail:\n"),
+            input("Phonenumber:\n"),
+            input("IBAN:\n"),
+            a1
+            )
         u1=User(
             input("Username:\n"),
             input("Password:\n"),
