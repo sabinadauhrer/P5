@@ -43,6 +43,7 @@ def createDB():
 
     db.commit()
     db.close()
+    seedroot()
 
 def seedroot():
     db=sqlite3.connect('user.db')
