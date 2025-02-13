@@ -29,6 +29,26 @@ class User:
         return self.Person
     def setPerson(self, Person=Person):
         self.Person=Person
+    def getName(self):
+        return self.Person.getName
+    def setName(self, name):
+        self.Person.setName=name
+    def getFirstname(self):
+        return self.Person.getFirstname
+    def setFirstname(self, firstname):
+        self.Person.setFirstname=firstname
+    def getEmail(self):
+        return self.Person.getEmail
+    def setEmail(self, email):
+        self.Person.setEmail=email
+    def getPhone(self):
+        return self.Person.getPhone
+    def setPhone(self, phone):
+        self.Person.setPhone=phone
+    def getIBAN(self):
+        return self.Person.getIBAN
+    def setIBAN(self, iban):
+        self.Person.setIBAN=iban
     
     def newCustomer():
         a1=Address(

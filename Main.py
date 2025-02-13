@@ -17,49 +17,16 @@ Admin=Admin.Admin
 
 def main():
     try:
-        
-        a1=Address(
-            input("Country:\n"),
-            input("ZIP:\n"),
-            input("City:\n"),
-            input("Street:\n"),
-            input("Streetnumber:\n")
-            )
-        p1=Person(
-            input("Name:\n"),
-            input("Firstname:\n"),
-            input("E-Mail:\n"),
-            input("Phonenumber:\n"),
-            input("IBAN:\n"),
-            a1
-            )
-        u1=User(
-            input("Username:\n"),
-            input("Password:\n"),
-            p1
-            )
-        print(u1)
-        """
-        u1=User(
-            input("Username:\n"),
-            input("Password:\n"),
-            p1=Person(
-                input("Name:\n"),
-                input("Firstname:\n"),
-                input("E-Mail:\n"),
-                input("Phonenumber:\n"),
-                input("IBAN:\n"),
-                a1=Address(
-                    input("Country:\n"),
-                    input("ZIP:\n"),
-                    input("City:\n"),
-                    input("Street:\n"),
-                    input("Streetnumber:\n")
-                    )
-                )
-            )
-        print(u1)
-        """
+        while True:
+            choice=input("create Database (d): \nseed Database (s): \nupdate Database (u): \ncancel (c): \n")
+            if choice=='d'or choice=='s'or choice=='u'or choice=='c':
+                    break
+        if choice=='d':
+            Database.createDB()
+        elif choice=='s':
+            Database.seedUser()
+        elif choice=='u':
+            Database.updateDB()
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except TypeError as te:
