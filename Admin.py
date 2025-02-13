@@ -1,8 +1,4 @@
 
-import sys
-import csv
-from csv import DictReader
-import math
 import Address
 import Person
 import Customer
@@ -17,6 +13,7 @@ User=User.User
 class Admin():
     def __init__(self, User):
         self.User=User
+        
     def createDB():
         Database.createDB()
     def seedUser():

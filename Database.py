@@ -192,14 +192,23 @@ def seedCustomerComplete(Customer=Customer,Person=Person,Address=Address):
     seedPerson(Person)
     seedCustomer(Customer)
     
-def updateDB():
+def updateUser():
+    db=sqlite3.connect('user.db')
+    
+    db.commit()
+    db.close()
+    
+def updateCustomer():
     db=sqlite3.connect('user.db')
     
     db.commit()
     db.close()
 
-def readDB():
+def readLoginDB(username,password):
     db=sqlite3.connect('user.db')
-    
+    cur=db.cursor()
+    cur.execute("SELECT * FROM User WHERE username = ? AND password = ?",(username,password))
+    u1=User(cur.fetchall())
     db.commit()
     db.close()
+    
