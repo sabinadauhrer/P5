@@ -57,12 +57,18 @@ def seedroot():
     db.commit()
     db.close()
     
-def seedDB():
+def seedUser():
     db=sqlite3.connect('user.db')
     
     db.commit()
     db.close()
-
+    
+def seedCustomer():
+    db=sqlite3.connect('user.db')
+    
+    db.commit()
+    db.close()
+    
 def updateDB():
     db=sqlite3.connect('user.db')
     
