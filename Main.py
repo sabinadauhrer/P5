@@ -26,7 +26,7 @@ def main():
         elif choice=='s':
             Database.seedUser()
         elif choice=='u':
-            Database.updateDB()
+            Database.updateUser()
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except TypeError as te:
