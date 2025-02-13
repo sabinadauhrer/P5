@@ -15,35 +15,35 @@ class Person:
     def setName(self, name):
         self.name=name
     def newName(self):
-        self.name=input("Name:\n")
+        self.setName(input("Name:\n"))
             
     def getFirstname(self):
         return self.firstname
     def setFirstname(self, firstname):
         self.firstname=firstname
     def newFirstname(self):
-        self.firstname=input("Firstname:\n")
+        self.setFirstname(input("Firstname:\n"))
             
     def getEmail(self):
         return self.email
     def setEmail(self, email):
         self.email=email
     def newEmail(self):
-        self.email=input("E-Mail:\n")
+        self.setEmail(input("E-Mail:\n"))
             
     def getPhone(self):
         return self.phone
     def setPhone(self, phone):
         self.phone=phone
     def newPhone(self):
-        self.phone=input("Phonenumber:\n")
+        self.setPhone(input("Phonenumber:\n"))
             
     def getIBAN(self):
         return self.iban
     def setIBAN(self, iban):
         self.iban=iban
     def newIBAN(self):
-        self.iban=input("IBAN:\n")
+        self.setIBAN(input("IBAN:\n"))
     
     def getAddress(self):
         return self.Address

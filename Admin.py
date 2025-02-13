@@ -19,8 +19,10 @@ class Admin():
         self.User=User
     def createDB():
         Database.createDB()
-    def seedDB():
-        Database.seedDB()
+    def seedUser():
+        Database.seedUser()
+    def seedCustomer():
+        Database.seedCustomer()
     def updateDB():
         Database.updateDB()
     def readDB():

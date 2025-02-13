@@ -52,7 +52,7 @@ def main():
         if choice=='d':
             Database.createDB()
         elif choice=='s':
-            Database.seedDB()
+            Database.seedUser()
         elif choice=='u':
             Database.updateDB()
             

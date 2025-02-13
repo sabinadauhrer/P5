@@ -11,7 +11,7 @@ class Customer:
     def setCompany(self, company):
         self.company=company
     def newCompany(self):
-        self.company=input("Company:\n")
+        self.setCompany(input("Company:\n"))
         
     def getPerson(self):
         return self.Person
