@@ -1,4 +1,14 @@
 
+import Address
+import Person
+import Customer
+import User
+
+Address=Address.Address
+Person=Person.Person
+Customer=Customer.Customer
+User=User.User
+
 import sqlite3
 
 def createDB():
@@ -23,14 +33,14 @@ def createDB():
             , phone TEXT
             , iban TEXT
             , AddressID INTEGER
-            , PRIMARY KEY(ID))""")
+            , PRIMARY KEY(ID), FOREIGN KEY(AddressID) REFERENCES Address(ID))""")
 
     db.execute("""
         CREATE TABLE Customer (
             ID INTEGER
             , company TEXT
             , PersonID INTEGER
-            , PRIMARY KEY(ID))""")
+            , PRIMARY KEY(ID), FOREIGN KEY(PersonID) REFERENCES Person(ID))""")
     
     db.execute("""
         CREATE TABLE User (
@@ -39,7 +49,7 @@ def createDB():
             , password TEXT
             , adminrole INTEGER
             , PersonID INTEGER
-            , PRIMARY KEY(ID))""")
+            , PRIMARY KEY(ID), FOREIGN KEY(PersonID) REFERENCES Person(ID))""")
 
     db.commit()
     db.close()
@@ -57,15 +67,56 @@ def seedroot():
     db.commit()
     db.close()
     
-def seedUser():
+def seedAddress(Address=Address):
+    data=[Address.getCountry,Address.getZIP,Address.getCity,Address.getStreet,Address.setSnumber]
     db=sqlite3.connect('user.db')
-    
+    cur=db.cursor()
+    cur.execute("""INSERT INTO Address (
+        country,
+        zip,
+        city,
+        street,
+        snumber
+        ) VALUES (?, ?, ?, ?, ?);""", data)
     db.commit()
     db.close()
     
-def seedCustomer():
+def seedPerson(Person=Person):
+    data=[Person.getName,Person.getFirstname,Person.getEmail,Person.getPhone,Person.getIBAN]
     db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("""INSERT INTO Person (
+        name,
+        firstname,
+        email,
+        phone,
+        iban,
+        AddressID
+        ) VALUES (?, ?, ?, ?, ?, ?);""", data)
+    db.commit()
+    db.close()
     
+def seedUser(User=User):
+    data=[User.getUsername,User.getPassword,0]
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("""INSERT INTO User (
+        username,
+        password,
+        adminrole,
+        PersonID
+        ) VALUES (?, ?, ?, ?);""", data)
+    db.commit()
+    db.close()
+    
+def seedCustomer(Customer=Customer):
+    data=[Customer.getCompany]
+    db=sqlite3.connect('user.db')    
+    cur=db.cursor()
+    cur.execute("""INSERT INTO Customer (
+        company,
+        PersonID
+        ) VALUES (?, ?);""", data)
     db.commit()
     db.close()
     
