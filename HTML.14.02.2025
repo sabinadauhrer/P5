@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Personenliste</title>
+    <style>
+        /* Allgemeines Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to right, #f8b5c4, #b5f8da);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+
+        .login-section, .form-section, .table-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+        }
+
+        .button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f0f0f0;
+        }
+
+        .delete-btn {
+            color: #e74c3c;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            color: #c0392b;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Login & Personenverwaltung</h1>
+
+    <!-- Login-Bereich -->
+    <div class="login-section" id="loginSection">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Benutzername">
+        <input type="password" id="password" placeholder="Passwort">
+        <button class="button" onclick="login()">Einloggen</button>
+    </div>
+
+    <!-- Formular für Mitarbeiter -->
+    <div class="form-section" id="employeeForm" style="display: none;">
+        <h2>Neuen Kunden hinzufügen (Mitarbeiter)</h2>
+        <input type="text" id="customerFirstName" placeholder="Vorname">
+        <input type="text" id="customerLastName" placeholder="Nachname">
+        <input type="text" id="customerAddress" placeholder="Adresse">
+        <input type="text" id="customerEmail" placeholder="E-Mail">
+        <button class="button" onclick="addCustomer()">Kunden hinzufügen</button>
+    </div>
+
+    <!-- Formular für Admin -->
+    <div class="form-section" id="adminForm" style="display: none;">
+        <h2>Neuen Mitarbeiter hinzufügen (Admin)</h2>
+        <input type="text" id="employeeFirstName" placeholder="Vorname">
+        <input type="text" id="employeeLastName" placeholder="Nachname">
+        <input type="text" id="employeeAddress" placeholder="Adresse">
+        <input type="text" id="employeeEmail" placeholder="E-Mail">
+        <button class="button" onclick="addEmployee()">Mitarbeiter hinzufügen</button>
+    </div>
+
+    <!-- Tabellenbereich -->
+    <div class="table-section" id="dataTables" style="display: none;">
+        <h2>Personenliste</h2>
+        <table id="personTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Adresse</th>
+                <th>E-Mail</th>
+                <th>Typ</th>
+                <th>Aktionen</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <!-- Buttons für Drucken und PDF -->
+        <div class="button-container">
+            <button class="button" onclick="printPage()">Drucken</button>
+            <button class="button" onclick="downloadPDF()">Als PDF herunterladen</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+    let persons = [];
+    let personId = 1;
+    let currentUserRole = null;
+
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === 'admin' && password === 'admin123') {
+            currentUserRole = 'admin';
+            alert('Admin erfolgreich eingeloggt!');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminForm').style.display = 'block';
+            document.getElementById('dataTables').style.display = 'block';
+        } else if (username === 'mitarbeiter' && password === 'mitarbeiter123') {
+            currentUserRole = 'mitarbeiter';
+            alert('Mitarbeiter erfolgreich eingeloggt!');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('employeeForm').style.display = 'block';
+            document.getElementById('dataTables').style.display = 'block';
+        } else {
+            alert('Ungültige Anmeldedaten!');
+        }
+    }
+
+    function addEmployee() {
+        if (currentUserRole !== 'admin') {
+            alert('Nur Admins können Mitarbeiter hinzufügen!');
+            return;
+        }
+        const firstName = document.getElementById('employeeFirstName').value;
+        const lastName = document.getElementById('employeeLastName').value;
+        const address = document.getElementById('employeeAddress').value;
+        const email = document.getElementById('employeeEmail').value;
+
+        if (firstName && lastName && address && email) {
+            persons.push({ id: personId++, firstName, lastName, address, email, type: 'Mitarbeiter' });
+            renderPersons();
+        } else {
+            alert('Bitte alle Felder ausfüllen!');
+        }
+    }
+
+    function addCustomer() {
+        if (currentUserRole !== 'mitarbeiter') {
+            alert('Nur Mitarbeiter können Kunden hinzufügen!');
+            return;
+        }
+        const firstName = document.getElementById('customerFirstName').value;
+        const lastName = document.getElementById('customerLastName').value;
+        const address = document.getElementById('customerAddress').value;
+        const email = document.getElementById('customerEmail').value;
+
+        if (firstName && lastName && address && email) {
+            persons.push({ id: personId++, firstName, lastName, address, email, type: 'Kunde' });
+            renderPersons();
+        } else {
+            alert('Bitte alle Felder ausfüllen!');
+        }
+    }
+
+    function renderPersons() {
+        const tableBody = document.getElementById('personTable').querySelector('tbody');
+        tableBody.innerHTML = '';
+        persons.forEach(person => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${person.id}</td>
+                <td>${person.firstName}</td>
+                <td>${person.lastName}</td>
+                <td>${person.address}</td>
+                <td>${person.email}</td>
+                <td>${person.type}</td>
+                <td>
+                    <span class="delete-btn" onclick="deletePerson(${person.id})">🗑️ Löschen</span>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function deletePerson(id) {
+        if (currentUserRole !== 'admin') {
+            alert('Nur Admins können Personen löschen!');
+            return;
+        }
+        persons = persons.filter(person => person.id !== id);
+        renderPersons();
+    }
+
+    function printPage() {
+        window.print();
+    }
+
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const table = document.getElementById("personTable");
+        doc.autoTable({ html: table });
+        doc.save("personenliste.pdf");
+    }
+</script>
+
+</body>
+</html>
