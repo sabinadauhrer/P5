@@ -21,7 +21,7 @@ class Admin():
     def seedCustomer():
         Database.seedCustomer()
     def updateDB():
-        Database.updateDB()
+        Database.updateUser()
     def readDB():
         Database.readDB()
     def newUser():

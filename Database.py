@@ -241,7 +241,7 @@ def readLoginDB(username,password):
         , (username,password))
         admincheck=cur.fetchone()
         admincheck=admincheck[0]
-        if admincheck:
+        if admincheck==1:
             r1=Admin.Admin(u1)
             return a1,p1,r1
         else:
