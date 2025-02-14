@@ -17,11 +17,15 @@ def loginUserT():
     password=input("password:\n")
     vuser=Database.readLoginDB(username,password)
     a1=vuser[0]
-    p1=vuser[0]
-    
+    p1=vuser[1]
+    u1=vuser[2]
     
 def loginUserP(usernamep, passwordp):
     username=usernamep
     password=passwordp
     Database.readLoginDB(username,password)
+    vuser=Database.readLoginDB(username,password)
+    a1=vuser[0]
+    p1=vuser[1]
+    u1=vuser[2]
     
