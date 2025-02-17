@@ -13,6 +13,9 @@ User=User.User
 class Admin():
     def __init__(self, User):
         self.User=User
+    
+    def __str__(self):
+        return f"({self.User})"
         
     def createDB():
         Database.createDB()
@@ -22,8 +25,6 @@ class Admin():
         Database.seedCustomer()
     def updateDB():
         Database.updateUser()
-    def readDB():
-        Database.readDB()
     def newUser():
         a1=Address(
             input("Country:\n"),

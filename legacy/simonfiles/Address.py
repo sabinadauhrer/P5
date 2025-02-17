@@ -6,6 +6,9 @@ class Address:
         self.city=city
         self.street=street
         self.snumber=snumber
+        
+    def __str__(self):
+        return f"({self.country},{self.zip},{self.city},{self.street},{self.snumber})"
     
     def getCountry(self):
         return self.country

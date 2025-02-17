@@ -1,6 +1,7 @@
 import Address
 import Person
 import Customer
+
 Address=Address.Address
 Person=Person.Person
 Customer=Customer.Customer
@@ -10,6 +11,9 @@ class User:
         self.username=username
         self.password=password
         self.Person=Person
+        
+    def __str__(self):
+        return f"({self.username},{self.Person})"
 
     def getUsername(self):
         return self.username
