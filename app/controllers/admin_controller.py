@@ -15,32 +15,38 @@ def admin_dashboard():
     users = get_all_users()
     return render_template('admin_dashboard.html', users=users)
 
-@admin_bp.route('/add_user', methods=['POST'])
+@admin_bp.route('/add_user', methods=['GET', 'POST'])
 def add_user():
-    data = request.json
-    address = Address(
-        country=data['country'],
-        zip=data['zip'],
-        city=data['city'],
-        street=data['street'],
-        snumber=data['snumber']
-    )
-    person = Person(
-        name=data['name'],
-        firstname=data['firstname'],
-        email=data['email'],
-        phone=data['phone'],
-        iban=data['iban'],
-        address=address
-    )
-    hashed_password = hash_password(data['password'])
-    user = User(
-        id=None,
-        person=person,
-        username=data['username'],
-        password=hashed_password,
-        adminrole=data.get('adminrole', 0)
-    )
-    new_user_id = save_user_to_db(user)
+    if not session.get('is_admin'):
+        return redirect(url_for('user.login'))
+    
+    if request.method == 'POST':
+        data = request.form
+        address = Address(
+            country=data['country'],
+            zip=data['zip'],
+            city=data['city'],
+            street=data['street'],
+            snumber=data['snumber']
+        )
+        person = Person(
+            name=data['name'],
+            firstname=data['firstname'],
+            email=data['email'],
+            phone=data['phone'],
+            iban=data['iban'],
+            address=address
+        )
+        hashed_password = hash_password(data['password'])
+        user = User(
+            id=None,
+            person=person,
+            username=data['username'],
+            password=hashed_password,
+            adminrole=1 if 'is_admin' in data else 0
+        )
+        new_user_id = save_user_to_db(user)
 
-    return jsonify({"message": "Neuer Benutzer angelegt", "user_id": new_user_id})
+        # Nach erfolgreicher Registrierung zum Admin-Dashboard weiterleiten
+        return redirect(url_for('admin.admin_dashboard'))
+    return render_template('register_user.html')

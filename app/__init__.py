@@ -1,5 +1,6 @@
 from flask import Flask
 import os
+from datetime import timedelta
 from app.controllers.user_controller import user_bp
 from app.controllers.admin_controller import admin_bp
 from app.database.database import *
@@ -13,6 +14,7 @@ def create_app():
     app.config['DATABASE'] = 'user.db'
     app.register_blueprint(user_bp)
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 #    app.config['MAIL_SERVER'] = 'smtp.example.com'
 #    app.config['MAIL_PORT'] = 587

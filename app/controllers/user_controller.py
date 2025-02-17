@@ -8,6 +8,10 @@ from app.models.hash import hash_password, verify_password
 
 user_bp = Blueprint('user', __name__)
 
+@user_bp.route('/')
+def index():
+    return redirect(url_for('user.login'))
+
 @user_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
