@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Personenliste</title>
+    <!-- Verweis auf die CSS-Datei -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Login & Personenverwaltung</h1>
+
+    <!-- Login-Bereich -->
+    <div class="login-section" id="loginSection">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Benutzername" onkeypress="checkEnter(event)">
+        <input type="password" id="password" placeholder="Passwort" onkeypress="checkEnter(event)">
+        <button class="button" onclick="login()">Einloggen</button>
+    </div>
+
+    <!-- Formular für Mitarbeiter -->
+    <div class="form-section" id="employeeForm" style="display: none;">
+        <h2>Neuen Kunden hinzufügen (Mitarbeiter)</h2>
+        <input type="text" id="customerFirstName" placeholder="Vorname">
+        <input type="text" id="customerLastName" placeholder="Nachname">
+        <input type="text" id="customerAddress" placeholder="Adresse">
+        <input type="text" id="customerEmail" placeholder="E-Mail">
+        <input type="text" id="customerID" placeholder="ID">
+        <input type="text" id="customerIBAN" placeholder="IBAN">
+        <button class="button" onclick="addCustomer()">Kunden hinzufügen</button>
+    </div>
+
+    <!-- Formular für Admin -->
+    <div class="form-section" id="adminForm" style="display: none;">
+        <h2>Neuen Mitarbeiter hinzufügen (Admin)</h2>
+        <input type="text" id="employeeFirstName" placeholder="Vorname">
+        <input type="text" id="employeeLastName" placeholder="Nachname">
+        <input type="text" id="employeeAddress" placeholder="Adresse">
+        <input type="text" id="employeeEmail" placeholder="E-Mail">
+        <input type="text" id="employeeID" placeholder="ID">
+        <input type="text" id="employeeIBAN" placeholder="IBAN">
+        <button class="button" onclick="addEmployee()">Mitarbeiter hinzufügen</button>
+    </div>
+
+    <!-- Suchbereich -->
+    <div class="search-container" id="searchSection" style="display: none;">
+        <h2>Personen filtern</h2>
+        <input type="text" id="searchInput" placeholder="Nach Name, Adresse, E-Mail oder Typ suchen..." oninput="filterPersons()">
+    </div>
+
+    <!-- Tabellenbereich -->
+    <div class="table-section" id="dataTables" style="display: none;">
+        <h2>Personenliste</h2>
+
+        <!-- PDF-Drucken-Button -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button class="button" onclick="exportToPDF()">PDF drucken</button>
+        </div>
+
+        <!-- Tabelle -->
+        <table id="personTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Adresse</th>
+                <th>E-Mail</th>
+                <th>Typ</th>
+                <th>Personen-ID</th>
+                <th>IBAN</th>
+                <th>Aktionen</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Verweis auf die JavaScript-Dateien -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+<script src="scripts.js"></script>
+
+</body>
+</html>
