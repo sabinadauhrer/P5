@@ -10,6 +10,9 @@ class Person:
         self.iban=iban
         self.Address=Address
         
+    def __str__(self):
+        return f"({self.name},{self.firstname},{self.email},{self.phone},{self.iban},{self.Address})"
+        
     def getName(self):
         return self.name
     def setName(self, name):

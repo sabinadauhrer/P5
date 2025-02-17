@@ -3,13 +3,13 @@ import Address
 import Person
 import Customer
 import User
-import Admin
+#import Admin
 
 Address=Address.Address
 Person=Person.Person
 Customer=Customer.Customer
 User=User.User
-Admin=Admin.Admin
+#Admin=Admin.Admin
 
 import sqlite3
 
@@ -206,48 +206,43 @@ def updateCustomer():
     db.commit()
     db.close()
 
-def readLoginDB(username,password):
-    db=sqlite3.connect('user.db')
-    cur=db.cursor()
-    cur.execute("SELECT PersonID FROM User WHERE username = ? AND password = ?",(username,password))
-    PersonID=cur.fetchone()
-    if PersonID:
-        PersonID=PersonID[0]
-        cur.execute(
-            "SELECT AddressID FROM Person WHERE ID = ?"
-            , (PersonID))
-        AddressID=cur.fetchone()
-        if AddressID:
-            AddressID=AddressID[0]
-            cur.execute(
-            "SELECT * FROM Address WHERE ID = ?"
-            , (AddressID))
-            adata=cur.fetchall()
-            a1=Address.Address(adata)
-        else:
-            print(f"No address found with the provided data for {AddressID}.")
-        cur.execute(
-        "SELECT * FROM Person WHERE ID = ?"
-        , (PersonID))
-        pdata=cur.fetchall()
-        p1=Person.Person(pdata,a1)
-        cur.execute(
-        "SELECT username AND password FROM User WHERE username = ? AND password = ?"
-        , (username,password))
-        udata=cur.fetchall()
-        u1=User.User(udata,p1)
-        cur.execute(
-        "SELECT adminrole FROM User WHERE username = ? AND password = ?"
-        , (username,password))
-        admincheck=cur.fetchone()
-        admincheck=admincheck[0]
-        if admincheck==1:
-            r1=Admin.Admin(u1)
-            return a1,p1,r1
-        else:
-            return a1,p1,u1
-    else:
-        print(f"No address found with the provided data for {username,password}.")
-    db.commit()
-    db.close()
+def readLoginDB(username, password):
+    db = sqlite3.connect('user.db')
+    cur = db.cursor()
     
+    cur.execute("SELECT PersonID FROM User WHERE username = ? AND password = ?", (username, password))
+    PersonID = cur.fetchone()
+    
+    if PersonID:
+        PersonID = PersonID[0]
+        cur.execute("SELECT AddressID FROM Person WHERE ID = ?", (PersonID,))
+        AddressID = cur.fetchone()        
+        adata = None
+        if AddressID:
+            AddressID = AddressID[0]
+            cur.execute("SELECT country, zip, city, street, snumber FROM Address WHERE ID = ?", (AddressID,))
+            adata = cur.fetchone()
+        
+        cur.execute("SELECT name, firstname, email, phone, iban FROM Person WHERE ID = ?", (PersonID,))
+        pdata = cur.fetchone()
+        
+        cur.execute("SELECT username, password FROM User WHERE username = ? AND password = ?", (username, password))
+        udata = cur.fetchone()
+
+        cur.execute("SELECT adminrole FROM User WHERE username = ? AND password = ?", (username, password))
+        admincheck = cur.fetchone()
+        
+        db.commit()
+        db.close()
+        
+        return {
+            'Address': adata,
+            'Person': pdata,
+            'User': udata,
+            'Admin': admincheck[0] if admincheck else None
+        }
+    else:
+        print(f"No user found with the provided data for {username}.")
+        db.commit()
+        db.close()
+        return 
