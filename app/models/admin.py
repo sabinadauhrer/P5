@@ -1,8 +1,8 @@
-import app.models.Address as Address
-import app.models.Person as Person
-import app.models.Customer as Customer
-import app.models.User as User
-import app.Database as Database
+import app.models.address as Address
+import app.models.person as Person
+import app.models.customer as Customer
+import app.models.user as User
+import app.database as Database
 
 Address=Address.Address
 Person=Person.Person

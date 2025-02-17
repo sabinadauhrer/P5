@@ -1,4 +1,4 @@
-import app.models.Person as Person
+import app.models.person as Person
 Person=Person.Person
 
 class Customer:
