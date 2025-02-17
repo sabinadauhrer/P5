@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt 5</title>
+
+    <!-- Web Icon (Favicon) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>P5</text></svg>">
+    <!-- Ersetze 'favicon.ico' durch dein eigenes Icon -->
+
+    <style>
+        /* Deine bestehenden Styles bleiben unverändert */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a1a; /* Dunkelgrauer Hintergrund */
+            color: #e0e0e0; /* Hellgrauer Text */
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #2a2a2a; /* Dunkleres Grau */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #ffffff; /* Weißer Text */
+            margin-bottom: 20px;
+        }
+        .form-section, .login-section, .table-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #333333; /* Mittelgrau */
+            border: 1px solid #444444; /* Dunklerer Rand */
+        }
+        .button {
+            background-color: #444444; /* Dunkleres Grau */
+            color: #e0e0e0; /* Hellgrauer Text */
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 1em;
+        }
+        .button:hover {
+            background-color: #555555; /* Mittelgrau beim Hover */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #444444; /* Dunkler Rand */
+            padding: 10px;
+            text-align: left;
+            color: #e0e0e0; /* Hellgrauer Text */
+        }
+        table th {
+            background-color: #444444; /* Dunkleres Grau */
+        }
+        .delete-btn {
+            color: #e74c3c;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            color: #c0392b;
+        }
+        .emoji {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><span class="emoji">📊</span> Projekt 5</h1>
+
+    <!-- Admin-Login -->
+    <div class="login-section" id="loginSection">
+        <h2><span class="emoji">🛡️</span> Admin-Login</h2>
+        <div class="input-group">
+            <span class="emoji">👤</span>
+            <input type="text" id="adminUsername" placeholder="Benutzername">
+        </div>
+        <div class="input-group">
+            <span class="emoji">🔒</span>
+            <input type="password" id="adminPassword" placeholder="Passwort">
+        </div>
+        <button class="button" onclick="adminLogin()"><span class="emoji">🔑</span> Einloggen</button>
+    </div>
+
+    <!-- Formular für Personen -->
+    <div class="form-section" id="personForm" style="display: none;">
+        <h2><span class="emoji">➕</span> Neue Person hinzufügen</h2>
+        <div class="input-group">
+            <span class="emoji">🆔</span>
+            <input type="text" id="personName" placeholder="Name">
+        </div>
+        <div class="input-group">
+            <span class="emoji">🆔</span>
+            <input type="text" id="personFirstname" placeholder="Vorname">
+        </div>
+        <div class="input-group">
+            <span class="emoji">📧</span>
+            <input type="email" id="personEmail" placeholder="E-Mail">
+        </div>
+        <div class="input-group">
+            <span class="emoji">📞</span>
+            <input type="text" id="personPhone" placeholder="Telefon">
+        </div>
+        <div class="input-group">
+            <span class="emoji">💳</span>
+            <input type="text" id="personIban" placeholder="IBAN">
+        </div>
+        <button class="button" onclick="addPerson()"><span class="emoji">➕</span> Person hinzufügen</button>
+    </div>
+
+    <!-- Tabellen -->
+    <div class="table-section" id="dataTables" style="display: none;">
+        <h2><span class="emoji">👥</span> Personen</h2>
+        <table id="personTable">
+            <thead>
+            <tr>
+                <th><span class="emoji">🔢</span> ID</th>
+                <th><span class="emoji">👤</span> Name</th>
+                <th><span class="emoji">👤</span> Vorname</th>
+                <th><span class="emoji">📧</span> E-Mail</th>
+                <th><span class="emoji">📞</span> Telefon</th>
+                <th><span class="emoji">💳</span> IBAN</th>
+                <th><span class="emoji">⚙️</span> Aktionen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Dynamischer Inhalt -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Datenbanken (Simulation)
+    let persons = [];
+    let personId = 1;
+    let isAdmin = false;
+
+    // Admin-Login
+    function adminLogin() {
+        const username = document.getElementById('adminUsername').value;
+        const password = document.getElementById('adminPassword').value;
+
+        // Beispiel: Harte Login-Daten (kann später durch eine echte Authentifizierung ersetzt werden)
+        if (username === 'admin' && password === '1234') {
+            isAdmin = true;
+            alert('Erfolgreich eingeloggt!');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('personForm').style.display = 'block';
+            document.getElementById('dataTables').style.display = 'block';
+        } else {
+            alert('Falscher Benutzername oder Passwort!');
+        }
+    }
+
+    // Person hinzufügen
+    function addPerson() {
+        const name = document.getElementById('personName').value;
+        const firstname = document.getElementById('personFirstname').value;
+        const email = document.getElementById('personEmail').value;
+        const phone = document.getElementById('personPhone').value;
+        const iban = document.getElementById('personIban').value;
+
+        if (name && firstname && email) {
+            persons.push({ id: personId++, name, firstname, email, phone, iban });
+            renderPersons();
+            alert('Person erfolgreich hinzugefügt!');
+            // Formularfelder zurücksetzen
+            document.getElementById('personName').value = "";
+            document.getElementById('personFirstname').value = "";
+            document.getElementById('personEmail').value = "";
+            document.getElementById('personPhone').value = "";
+            document.getElementById('personIban').value = "";
+        } else {
+            alert('Bitte alle Pflichtfelder ausfüllen!');
+        }
+    }
+
+    // Person löschen
+    function deletePerson(id) {
+        if (isAdmin) {
+            persons = persons.filter(person => person.id !== id);
+            renderPersons();
+            alert('Person erfolgreich gelöscht!');
+        } else {
+            alert('Nur Admins können Personen löschen!');
+        }
+    }
+
+    // Personen anzeigen
+    function renderPersons() {
+        const tableBody = document.getElementById('personTable').querySelector('tbody');
+        tableBody.innerHTML = '';
+        persons.forEach(person => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${person.id}</td>
+                <td>${person.name}</td>
+                <td>${person.firstname}</td>
+                <td>${person.email}</td>
+                <td>${person.phone || '-'}</td>
+                <td>${person.iban || '-'}</td>
+                <td>
+                    <span class="delete-btn" onclick="deletePerson(${person.id})">
+                        🗑️ Löschen
+                    </span>
+                    <span class="delete-btn" onclick="printPerson(${person.id})">
+                        🖨️ Drucken
+                    </span>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Person drucken
+    function printPerson(id) {
+        if (isAdmin) {
+            const person = persons.find(person => person.id === id);
+            if (!person) {
+                alert('Person nicht gefunden!');
+                return;
+            }
+
+            const printContent = `
+                <h2>Personen Details</h2>
+                <p><strong>Name:</strong> ${person.name}</p>
+                <p><strong>Vorname:</strong> ${person.firstname}</p>
+                <p><strong>Email:</strong> ${person.email}</p>
+                <p><strong>Telefon:</strong> ${person.phone || '-'}</p>
+                <p><strong>IBAN:</strong> ${person.iban || '-'}</p>
+            `;
+            
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Person Drucken</title></head><body>');
+            printWindow.document.write(printContent);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        } else {
+            alert('Nur Admins können Personen drucken!');
+        }
+    }
+</script>
+
+</body>
+</html>
