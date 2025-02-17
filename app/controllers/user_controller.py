@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, session
+from flask import Blueprint, request, jsonify, session, render_template, request, redirect, url_for
 from app.models.user import User
 from app.models.person import Person
 from app.models.address import Address
@@ -8,48 +8,24 @@ from app.models.hash import hash_password, verify_password
 
 user_bp = Blueprint('user', __name__)
 
-@user_bp.route('/add_user', methods=['POST'])
-def add_user():
-    data = request.json
-    address = Address(
-        country=data['country'],
-        zip=data['zip'],
-        city=data['city'],
-        street=data['street'],
-        snumber=data['snumber']
-    )
-    person = Person(
-        name=data['name'],
-        firstname=data['firstname'],
-        email=data['email'],
-        phone=data['phone'],
-        iban=data['iban'],
-        address=address
-    )
-    hashed_password = hash_password(data['password'])
-    user = User(
-        id=None,
-        person=person,
-        username=data['username'],
-        password=hashed_password,
-        adminrole=data.get('adminrole', 0)
-    )
-    new_user_id = save_user_to_db(user)
-
-    return jsonify({"message": "Neuer Benutzer angelegt", "user_id": new_user_id})
-
-@user_bp.route('/login', methods=['POST'])
+@user_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.json
-    username = data['username']
-    password = data['password']
-    
-    user = get_user_by_username(username)
-    
-    if user and verify_password(user.password, password):
-        return jsonify({"message": "Login erfolgreich", "user_id": user.id})
-    else:
-        return jsonify({"message": "Ungültiger Benutzername oder Passwort"}), 401
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        user = get_user_by_username(username)
+        
+        if user and verify_password(user.password, password):
+            session['user_id'] = user.id
+            session['is_admin'] = user.adminrole
+            if user.adminrole:
+                return redirect(url_for('admin.admin_dashboard'))
+            else:
+                return redirect(url_for('user.user_dashboard'))
+        else:
+            return render_template('login.html', error="Ungültiger Benutzername oder Passwort")
+    return render_template('login.html')
     
 @user_bp.route('/verify_2fa', methods=['POST'])
 def verify_2fa():
@@ -63,3 +39,14 @@ def verify_2fa():
         return jsonify({"message": "Login erfolgreich", "user_id": user_id}), 200
     else:
         return jsonify({"message": "Ungültiger 2FA-Code"}), 401
+    
+@user_bp.route('/user_dashboard')
+def user_dashboard():
+    if session.get('is_admin'):
+        return redirect(url_for('admin_dashboard'))
+    return render_template('user_dashboard.html')
+
+@user_bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('user.login'))
