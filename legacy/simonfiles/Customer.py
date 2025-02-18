@@ -5,6 +5,9 @@ class Customer:
     def __init__(self, company, Person=Person):
         self.company=company
         self.Person=Person
+        
+    def __str__(self):
+        return f"({self.company}, {self.Person})"
 
     def getCompany(self):
         return self.company

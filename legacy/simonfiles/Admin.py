@@ -25,7 +25,7 @@ class Admin():
         Database.seedCustomer()
     def updateDB():
         Database.updateUser()
-    def newUser():
+    def newUserT():
         a1=Address(
             input("Country:\n"),
             input("ZIP:\n"),
@@ -46,5 +46,11 @@ class Admin():
             input("Password:\n"),
             p1
             )
-        return u1,p1,a1
+        Database.seedUserComplete(u1,p1,a1)
     
+    def newUserP(country,zip,city,street,snumber,name,firstname,email,phone,iban,username,password):
+        a1=Address(country,zip,city,street,snumber)
+        p1=Person(name,firstname,email,phone,iban,a1)
+        u1=User(username,password,p1)
+        Database.seedUserComplete(u1,p1,a1)
+        

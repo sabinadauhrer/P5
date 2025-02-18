@@ -2,7 +2,7 @@ import Address
 Address=Address.Address
 
 class Person:
-    def __init__(self, name, firstname, email, phone, iban, Address=Address):
+    def __init__(self, name,firstname,email,phone,iban, Address=Address):
         self.name=name
         self.firstname=firstname
         self.email=email
@@ -11,7 +11,7 @@ class Person:
         self.Address=Address
         
     def __str__(self):
-        return f"({self.name},{self.firstname},{self.email},{self.phone},{self.iban},{self.Address})"
+        return f"({self.name}, {self.firstname}, {self.email}, {self.phone}, {self.iban}, {self.Address})"
         
     def getName(self):
         return self.name
