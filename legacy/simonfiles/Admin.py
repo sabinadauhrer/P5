@@ -54,3 +54,5 @@ class Admin():
         u1=User(username,password,p1)
         Database.seedUserComplete(u1,p1,a1)
         
+    def deleteUserN(username):
+        Database.deleteUserN(username)

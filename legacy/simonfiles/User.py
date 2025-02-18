@@ -1,7 +1,7 @@
 import Address
 import Person
 import Customer
-import Database
+#import Database
 
 Address=Address.Address
 Person=Person.Person
@@ -55,7 +55,7 @@ class User:
     def setIBAN(self, iban):
         self.Person.setIBAN=iban
     
-    def newCustomerT():
+"""    def newCustomerT():
         a1=Address(
             input("Country:\n"),
             input("ZIP:\n"),
@@ -83,3 +83,6 @@ class User:
         c1=Customer(company,p1)
         Database.seedCustomerComplete(c1,p1,a1)
         
+    def deleteCustomerP(name,firstname,email,phone,iban):
+        Database.deleteCustomer(name,firstname,email,phone,iban)
+        """
