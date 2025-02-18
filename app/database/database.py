@@ -1,4 +1,5 @@
 import sqlite3
+import config
 from app.models.user import User
 from app.models.hash import *
 
@@ -65,7 +66,7 @@ def seedroot():
         "SELECT id FROM Address WHERE zip = ? AND street = ? AND snumber = ?"
         , ('root', 'root', 'root'))
     AddressID = cur.fetchone()[0]
-    pdata = ['root', 'root', 'root', 'root', 'root', AddressID]
+    pdata = ['root', 'root', config.root_email, 'root', 'root', AddressID]
     cur.execute("""INSERT INTO Person (
         name,
         firstname,
@@ -84,8 +85,8 @@ def seedroot():
         , ('root', 'root', 'root'))
     PersonID = cur.fetchone()[0]
     
-    hashed_password = hash_password('root')
-    udata = ['root', hashed_password, 1, PersonID]
+    hashed_password = hash_password(config.root_password)
+    udata = [config.root_username, hashed_password, 1, PersonID]
     cur.execute("""INSERT INTO User (
         username,
         password,
@@ -134,11 +135,10 @@ def save_user_to_db(user):
     INSERT INTO User (username, password, PersonID, adminrole)
     VALUES (?, ?, ?, ?)""", (user.username, user.password, person_id, user.adminrole))
     db.commit()
-    return cursor.lastrowid
-    
-    db.commit()
     db.close()
-    
+
+    return cursor.lastrowid
+
     return user_id
 
 def get_user_by_username(username):
