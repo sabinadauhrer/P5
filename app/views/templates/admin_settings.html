@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings</title>
+</head>
+<body>
+    <form action="{{ url_for('admin.update_config') }}" method="post">
+        <label for="two_fa_on">2FA On:</label>
+        <input type="checkbox" id="two_fa_on" name="two_fa_on" {% if config.two_fa_on %}checked{% endif %}><br>
+        <label for="session_lifetime">Session Lifetime (minutes):</label>
+        <input type="number" id="session_lifetime" name="session_lifetime" value="{{ config.session_lifetime }}"><br>
+        <label for="mail_server">Mail Server:</label>
+        <input type="text" id="mail_server" name="mail_server" value="{{ config.mail_server }}"><br>
+        <label for="mail_port">Mail Port:</label>
+        <input type="number" id="mail_port" name="mail_port" value="{{ config.mail_port }}"><br>
+        <label for="mail_use_tls">Mail Use TLS:</label>
+        <input type="checkbox" id="mail_use_tls" name="mail_use_tls" {% if config.mail_use_tls %}checked{% endif %}><br>
+        <label for="mail_username">Mail Username:</label>
+        <input type="text" id="mail_username" name="mail_username" value="{{ config.mail_username }}"><br>
+        <label for="mail_password">Mail Password:</label>
+        <input type="password" id="mail_password" name="mail_password" value="{{ config.mail_password }}"><br>
+        <input type="submit" value="Update Config">
+    </form>
+    <br>
+    <a href="{{ url_for('admin.admin_dashboard') }}">
+        <button>Zurück zum Dashboard</button>
+    </a>
+</body>
+</html>
