@@ -85,3 +85,60 @@ def update_config():
         f.write(f"mail_password = '{config.mail_password}'\n")
     
     return "Config updated successfully!"
+
+@admin_bp.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    if not session.get('is_admin'):
+        return redirect(url_for('user.login'))
+    
+    user = get_user_by_id(user_id)
+    
+    if request.method == 'POST':
+        data = request.form
+        user.username = data['username']
+        user.person.name = data['name']
+        user.person.firstname = data['firstname']
+        user.person.email = data['email']
+        user.person.phone = data['phone']
+        user.person.iban = data['iban']
+        user.person.address.country = data['country']
+        user.person.address.zip = data['zip']
+        user.person.address.city = data['city']
+        user.person.address.street = data['street']
+        user.person.address.snumber = data['snumber']
+        user.adminrole = 1 if 'is_admin' in data else 0
+        update_user_in_db(user)
+        return redirect(url_for('admin.admin_dashboard'))
+    
+    return render_template('admin_edit_user.html', user=user)
+    
+@admin_bp.route('/delete_user/<int:user_id>', methods=['GET'])
+def delete_user(user_id):
+    if not session.get('is_admin'):
+        return redirect(url_for('user.login'))
+    
+    delete_user_by_id(user_id)
+    return redirect(url_for('admin.admin_dashboard'))
+
+@admin_bp.route('/update_user/<int:user_id>', methods=['POST'])
+def update_user(user_id):
+    if not session.get('is_admin'):
+        return redirect(url_for('user.login'))
+    
+    user = get_user_by_id(user_id)
+    if user:
+        data = request.form
+        user.username = data['username']
+        user.person.name = data['name']
+        user.person.firstname = data['firstname']
+        user.person.email = data['email']
+        user.person.phone = data['phone']
+        user.person.iban = data['iban']
+        user.person.address.country = data['country']
+        user.person.address.zip = data['zip']
+        user.person.address.city = data['city']
+        user.person.address.street = data['street']
+        user.person.address.snumber = data['snumber']
+        user.adminrole = 1 if 'is_admin' in data else 0
+        update_user_in_db(user)
+    return redirect(url_for('admin.admin_dashboard'))

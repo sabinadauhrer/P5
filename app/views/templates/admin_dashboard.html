@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+
 </head>
 <body>
     <h1>Admin Dashboard</h1>
@@ -12,19 +13,22 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Benutzername</th>
                 <th>Email</th>
-                <th>Admin</th>
+                <th>Rolle</th>
+                <th>Aktionen</th>
             </tr>
         </thead>
         <tbody>
             {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ 'Ja' if user.adminrole else 'Nein' }}</td>
+                <td>{{ user.person.email }}</td>  <!-- E-Mail-Adresse hier anzeigen -->
+                <td>{{ 'Admin' if user.adminrole else 'Benutzer' }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="btn btn-primary">Bearbeiten</a>
+                    <a href="{{ url_for('admin.delete_user', user_id=user.id) }}" class="btn btn-danger" onclick="return confirm('Bist du sicher, dass du diesen Benutzer löschen möchtest?');">Löschen</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

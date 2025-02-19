@@ -1,68 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de"> 
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .login-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .login-container h1 {
-            margin-bottom: 20px;
-        }
-        .login-container label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        .login-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .login-container button:hover {
-            background-color: #0056b3;
-        }
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Login Seite</title> 
+
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}">
+    <!-- fügt die CSS-Datei ein (für aussehen) Flask könnte hier dann "{{ url_for('static', filename='style.css') }}" stehen, 
+     Flask kenn ich mich nicht aus und weiß nicht, wie ich es richtig einfüge -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <form method="post" action="{{ url_for('user.login') }}">
-            <label for="username">Benutzername:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Passwort:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Login</button>
+<body> 
+
+    <div class="login-container"> <!-- Container für das gesamte Login-Formular -->
+        <h1>Log In</h1> 
+        <p>Willkommen zurück. Log dich hier ein.</p> 
+
+        <!-- Formular mit Flask-Funktion:
+             "method=post" und "action={{ url_for('user.login') }}" werden beim Rendern durch Flask ersetzt. 
+             Sollten auf jeden fall-->    
+        <form method="post" action="{{ url_for('user.login') }}" id="loginForm"> 
+            
+            <div class="input-group"> <!-- Username-Feld -->
+                <i class="fa-solid fa-user"></i> <!-- Icon für den Benutzer -->
+                <input type="text" id="username" name="username" placeholder="UserName" required> <!-- Eingabefeld für den Benutzernamen -->
+            </div>
+
+            <div class="input-group"> <!-- Passwort-Feld mit Schloss-Icon und Auge-Icon -->
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Password" required> <!-- Eingabefeld für das Passwort -->
+                <i class="fa-solid fa-eye eye-icon" id="togglePassword"></i> <!-- Icon zum Ein-/Ausblenden des Passworts -->
+            </div>
+
+            <!-- Fehlermeldung von Flask -->
+            {% if error %}
+            <p class="error">{{ error }}</p> 
+            {% endif %}
+
+            <!-- Fehlermeldung das von JavaScript gesteuert, da bin ich mir nicht sicher, ob man das nicht weglassen kann, wegen Flask-->
+            <p id="error-message"></p>
+
+            <button type="submit" class="login-btn">Login</button>
         </form>
-        {% if error %}
-        <p class="error">{{ error }}</p>
-        {% endif %}
+
+        <div class="options"> 
+            <a href="#">Passwort vergessen</a> <!-- Link zum Zurücksetzen des Passworts, das wir ja noch nicht haben -->
+            <!-- Optionaler Registrierungs-Button, kann man, wenn man möchte wieder aktivieren:
+            <button class="signup-btn">Sign Up <i class="fa-solid fa-user-plus"></i></button>
+            -->
+        </div>
     </div>
+
+    <!-- Einbinden der JavaScript-Datei (Logik zum Ein-/Ausblenden des Passworts usw.) 
+          -->
+          <script src="{{ url_for('static', filename='js/login_script.js') }}"></script> <!-- Verknüpfung zum JS-Script- Datei. 
+    In Flask wird eigentlich "{{ url_for('static', filename='script.js') }}" benutz, soweit ich weiß -->
 </body>
-</html>
+</html> 
