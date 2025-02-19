@@ -53,23 +53,23 @@ class Person:
     def setAddress(self, Address=Address):
         self.Address=Address
     def getCountry(self):
-        return self.Address.getCountry
+        return self.Address.getCountry()
     def setCountry(self, country):
-        self.Address.setCountry=country
+        self.Address.setCountry(country)
     def getZIP(self):
-        return self.Address.getZIP
+        return self.Address.getZIP()
     def setZIP(self, zip):
-        self.Address.setZIP=zip
+        self.Address.setZIP(zip)
     def getCity(self):
-        return self.Address.getCity
+        return self.Address.getCity()
     def setCity(self, city):
-        self.Address.setCity=city
+        self.Address.setCity(city)
     def getStreet(self):
-        return self.Address.getStreet
+        return self.Address.getStreet()
     def setStreet(self, street):
-        self.Address.setStreet=street
+        self.Address.setStreet(street)
     def getSnumber(self):
-        return self.Address.getSnumber
+        return self.Address.getSnumber()
     def setSnumber(self, snumber):
-        self.Address.setSnumber=snumber
+        self.Address.setSnumber(snumber)
     
