@@ -9,12 +9,17 @@ from flask_mail import Mail, Message
 
 
 def create_app():
-    app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'views', 'templates'))
+    app = Flask(__name__, 
+                template_folder=os.path.join(os.path.dirname(__file__), 'views', 'templates'),
+                static_folder='views/static')
+    
     app.secret_key = os.urandom(24)
     app.config['DATABASE'] = 'user.db'
     app.register_blueprint(user_bp)
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=config.session_lifetime)
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
     
     if config.two_fa_on == True:
         app.config['MAIL_SERVER'] = config.mail_server
@@ -28,9 +33,12 @@ def create_app():
 
     @app.before_request
     def check_authentication_and_authorization():
+        if request.endpoint and 'static' in request.endpoint:
+            return  # Erlaubt den Zugriff auf statische Dateien ohne Authentifizierung
         if 'user_id' not in session and request.endpoint not in ['user.login', 'user.index']:
             return redirect(url_for('user.login'))
-        if request.endpoint.startswith('admin.') and not session.get('is_admin'):
+        if request.endpoint and request.endpoint.startswith('admin.') and not session.get('is_admin'):
             return redirect(url_for('user.login'))
+
 
     return app
