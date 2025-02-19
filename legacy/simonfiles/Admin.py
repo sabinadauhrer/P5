@@ -4,6 +4,7 @@ import Person
 import Customer
 import User
 import Database
+import Session
 
 Address=Address.Address
 Person=Person.Person
@@ -25,7 +26,7 @@ class Admin():
         Database.seedCustomer()
     def updateDB():
         Database.updateUser()
-    def newUser():
+    def newUserT():
         a1=Address(
             input("Country:\n"),
             input("ZIP:\n"),
@@ -46,5 +47,25 @@ class Admin():
             input("Password:\n"),
             p1
             )
-        return u1,p1,a1
-    
+        Database.seedUserComplete(u1,p1,a1)
+    def newUserP(country,zip,city,street,snumber,name,firstname,email,phone,iban,username,password):
+        a1=Address(country,zip,city,street,snumber)
+        p1=Person(name,firstname,email,phone,iban,a1)
+        u1=User(username,password,p1)
+        Database.seedUserComplete(u1,p1,a1)
+    def deleteUserNP(username):
+        Database.deleteUserN(username)
+    def deleteUserIDP(ID):
+        Database.deleteUserID(ID)
+    def deleteUserNT():
+        username=input("username:\n")
+        Database.deleteUserN(username)
+        
+    def newCustomerT():
+        Session.newCustomerT()
+    def newCustomerP(country,zip,city,street,snumber,name,firstname,email,phone,iban,company):
+        Session.newCustomerP(country,zip,city,street,snumber,name,firstname,email,phone,iban,company)
+    def deleteCustomerNP(name,firstname,email,phone,iban):
+        Session.deleteCustomerNP(name,firstname,email,phone,iban)
+    def deleteCustomerIDP(ID):
+        Session.deleteCustomerIDP(ID)

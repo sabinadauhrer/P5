@@ -1,6 +1,6 @@
 
 class Address:
-    def __init__(self, country, zip, city, street, snumber):
+    def __init__(self, country,zip,city,street,snumber):
         self.country=country
         self.zip=zip
         self.city=city
@@ -8,7 +8,7 @@ class Address:
         self.snumber=snumber
         
     def __str__(self):
-        return f"({self.country},{self.zip},{self.city},{self.street},{self.snumber})"
+        return f"({self.country}, {self.zip}, {self.city}, {self.street}, {self.snumber})"
     
     def getCountry(self):
         return self.country
