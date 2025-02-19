@@ -4,7 +4,7 @@ import Person
 import Customer
 import User
 import Database
-import Session
+#import Session
 
 Address=Address.Address
 Person=Person.Person
@@ -60,12 +60,37 @@ class Admin():
     def deleteUserNT():
         username=input("username:\n")
         Database.deleteUserN(username)
-        
+            
     def newCustomerT():
-        Session.newCustomerT()
-    def newCustomerP(country,zip,city,street,snumber,name,firstname,email,phone,iban,company):
-        Session.newCustomerP(country,zip,city,street,snumber,name,firstname,email,phone,iban,company)
+        a1=Address(
+            input("Country:\n"),
+            input("ZIP:\n"),
+            input("City:\n"),
+            input("Street:\n"),
+            input("Streetnumber:\n")
+            )
+        p1=Person(
+            input("Name:\n"),
+            input("Firstname:\n"),
+            input("E-Mail:\n"),
+            input("Phonenumber:\n"),
+            input("IBAN:\n"),
+            a1
+            )
+        c1=Customer(
+            input("Company:\n"),
+            p1
+            )   
     def deleteCustomerNP(name,firstname,email,phone,iban):
-        Session.deleteCustomerNP(name,firstname,email,phone,iban)
+        Database.deleteCustomerN(name,firstname,email,phone,iban)
     def deleteCustomerIDP(ID):
-        Session.deleteCustomerIDP(ID)
+        Database.deleteCustomerID(ID)
+        
+    def searchUserDBT():
+        search=input("suche: \n")
+        results=Database.searchUserDB(search)
+        for row in results:
+            print(row)
+    def searchUserDBP(search):
+        results=Database.searchUserDB(search)
+        return results
