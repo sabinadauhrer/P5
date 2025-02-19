@@ -15,7 +15,6 @@ Admin=Admin.Admin
 def loginUserT():
     username=input("username:\n")
     password=input("password:\n")
-    
     vuser=Database.readLoginDB(username,password)
     if vuser:
         adata=vuser['Address']
@@ -32,7 +31,6 @@ def loginUserT():
             print(a1,p1,u1)
     else:
         print("Invalid username or password")
-    
 def loginUserP(usernamep, passwordp):
     username=usernamep
     password=passwordp
@@ -74,13 +72,13 @@ def newCustomerT():
         p1
         )
     Database.seedCustomerComplete(c1,p1,a1)
-    
 def newCustomerP(country,zip,city,street,snumber,name,firstname,email,phone,iban,company):
     a1=Address(country,zip,city,street,snumber)
     p1=Person(name,firstname,email,phone,iban,a1)
     c1=Customer(company,p1)
     Database.seedCustomerComplete(c1,p1,a1)
         
-def deleteCustomerP(name,firstname,email,phone,iban):
-    Database.deleteCustomer(name,firstname,email,phone,iban)
-        
+def deleteCustomerNP(name,firstname,email,phone,iban):
+    Database.deleteCustomerN(name,firstname,email,phone,iban)
+def deleteCustomerIDP(ID):
+    Database.deleteCustomerID(ID)      
