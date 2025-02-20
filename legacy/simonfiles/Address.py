@@ -1,46 +1,46 @@
 
 class Address:
     def __init__(self, country,zip,city,street,snumber):
-        self.country=country
-        self.zip=zip
-        self.city=city
-        self.street=street
-        self.snumber=snumber
+        self._country=country
+        self._zip=zip
+        self._city=city
+        self._street=street
+        self._snumber=snumber
         
     def __str__(self):
-        return f"({self.country}, {self.zip}, {self.city}, {self.street}, {self.snumber})"
+        return f"({self._country}, {self._zip}, {self._city}, {self._street}, {self._snumber})"
     
     def getCountry(self):
-        return self.country
+        return self._country
     def setCountry(self, country):
-        self.country=country
+        self._country=country
     def newCountry(self):
         self.setCountry(input("Country:\n"))
     
     def getZIP(self):
-        return self.zip
+        return self._zip
     def setZIP(self, zip):
-        self.zip=zip
+        self._zip=zip
     def newZIP(self):
         self.setZIP(input("ZIP:\n"))
     
     def getCity(self):
-        return self.city
+        return self._city
     def setCity(self, city):
-        self.city=city
+        self._city=city
     def newCity(self):
         self.setCity(input("City:\n"))
     
     def getStreet(self):
-        return self.street
+        return self._street
     def setStreet(self, street):
-        self.street=street
+        self._street=street
     def newStreet(self):
         self.setStreet(input("Street:\n"))
     
     def getSnumber(self):
-        return self.snumber
+        return self._snumber
     def setSnumber(self, snumber):
-        self.snumber=snumber
+        self._snumber=snumber
     def newSnumber(self):
         self.setSnumber(input("Streetnumber:\n"))

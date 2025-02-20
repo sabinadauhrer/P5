@@ -9,51 +9,51 @@ Customer=Customer.Customer
 
 class User:
     def __init__(self, username,password, Person=Person):
-        self.username=username
-        self.password=password
-        self.Person=Person
+        self._username=username
+        self._password=password
+        self._Person=Person
         
     def __str__(self):
-        return f"({self.username}, {self.Person})"
+        return f"({self._username}, {self._Person})"
 
     def getUsername(self):
-        return self.username
+        return self._username
     def setUsername(self, username):
-        self.username=username
+        self._username=username
     def newUsername(self):
         self.setUsername(input("Username:\n"))
     
     def getPassword(self):
-        return self.password
+        return self._password
     def setPassword(self, password):
-        self.password=password
+        self._password=password
     def newPassword(self):
         self.setPassword(input("Password:\n"))
             
     def getPerson(self):
-        return self.Person
+        return self._Person
     def setPerson(self, Person=Person):
-        self.Person=Person
+        self._Person=Person
     def getName(self):
-        return self.Person.getName()
+        return self._Person.getName()
     def setName(self, name):
-        self.Person.setName(name)
+        self._Person.setName(name)
     def getFirstname(self):
-        return self.Person.getFirstname()
+        return self._Person.getFirstname()
     def setFirstname(self, firstname):
-        self.Person.setFirstname(firstname)
+        self._Person.setFirstname(firstname)
     def getEmail(self):
-        return self.Person.getEmail()
+        return self._Person.getEmail()
     def setEmail(self, email):
-        self.Person.setEmail(email)
+        self._Person.setEmail(email)
     def getPhone(self):
-        return self.Person.getPhone()
+        return self._Person.getPhone()
     def setPhone(self, phone):
-        self.Person.setPhone(phone)
+        self._Person.setPhone(phone)
     def getIBAN(self):
-        return self.Person.getIBAN()
+        return self._Person.getIBAN()
     def setIBAN(self, iban):
-        self.Person.setIBAN(iban)
+        self._Person.setIBAN(iban)
     
 """    def newCustomerT():
         a1=Address(
