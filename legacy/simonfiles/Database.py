@@ -56,7 +56,7 @@ def createDB():
     db.commit()
     db.close()
     seedroot()
-
+# --- seed root ---
 def seedroot():
     adata=['root','root','root','root','root']
     db=sqlite3.connect('user.db')
@@ -106,7 +106,7 @@ def seedroot():
         ) VALUES (?, ?, ?, ?);""", udata)
     db.commit()
     db.close()
-    
+# --- seed ---
 def seedAddress(Address):
     data=[Address.getCountry(),Address.getZIP(),Address.getCity(),Address.getStreet(),Address.getSnumber()]
     db=sqlite3.connect('user.db')
@@ -199,7 +199,62 @@ def seedCustomerComplete(Customer,Person,Address):
     seedAddress(Address)
     seedPerson(Person)
     seedCustomer(Customer)
+# --- search ---
+def searchUserDB(search):
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute(
+        """SELECT User.*, Person.*, Address.* 
+        FROM User 
+        JOIN Person ON User.PersonID = Person.ID
+        JOIN Address ON Person.AddressID = Address.ID
+        WHERE User.ID LIKE ? OR 
+        User.username LIKE ? OR 
+        User.PersonID LIKE ? OR
+        Person.name LIKE ? OR
+        Person.firstname LIKE ? OR
+        Person.email LIKE ? OR
+        Person.phone LIKE ? OR
+        Person.iban LIKE ? OR
+        Address.country LIKE ? OR
+        Address.zip LIKE ? OR
+        Address.city LIKE ? OR
+        Address.street LIKE ? OR
+        Address.snumber LIKE ?;
+        """, (search,)*13)
+    results=cur.fetchall()
+    db.close()
+    return results
     
+def searchCustomerDB(search):
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute(
+        """SELECT Customer.*, Person.*, Address.* 
+        FROM Customer 
+        JOIN Person ON Customer.PersonID = Person.ID
+        JOIN Address ON Person.AddressID = Address.ID
+        WHERE Customer.ID LIKE ? OR 
+        Customer.company LIKE ? OR 
+        Customer.PersonID LIKE ? OR
+        Person.name LIKE ? OR
+        Person.firstname LIKE ? OR
+        Person.email LIKE ? OR
+        Person.phone LIKE ? OR
+        Person.iban LIKE ? OR
+        Address.country LIKE ? OR
+        Address.zip LIKE ? OR
+        Address.city LIKE ? OR
+        Address.street LIKE ? OR
+        Address.snumber LIKE ?;
+        """, (search,)*13)
+    results=cur.fetchall()
+    db.close()
+    return results
+
+# --- delete ---    
 def deleteCustomerN(name,firstname,email,phone,iban):
     db=sqlite3.connect('user.db')
     cur=db.cursor()
@@ -397,7 +452,7 @@ def updateCustomer():
     
     db.commit()
     db.close()
-
+# --- login ---
 def readLoginDB(username, password):
     db=sqlite3.connect('user.db')
     cur=db.cursor()

@@ -50,7 +50,7 @@ def loginUserP(usernamep, passwordp):
             return a1,p1,u1
     else:
         return
-    
+# --- User Funktionen ---
 def newCustomerT():
     a1=Address(
         input("Country:\n"),
@@ -82,3 +82,12 @@ def deleteCustomerNP(name,firstname,email,phone,iban):
     Database.deleteCustomerN(name,firstname,email,phone,iban)
 def deleteCustomerIDP(ID):
     Database.deleteCustomerID(ID)      
+    
+def searchCustomerDBT():
+    search=input("suche: \n")
+    results=Database.searchCustomerDB(search)
+    for row in results:
+        print(row)
+def searchCustomerDBP(search):
+    results=Database.searchCustomerDB(search)
+    return results
