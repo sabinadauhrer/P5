@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="dashboard-container">
         <div class="header">
             <div>
                 <h1>User Dashboard</h1>
                 <p>Willkommen, {{ user.username }}!</p>
             </div>
-            <a href="{{ url_for('user.logout') }}" class="button-link">Logout</a>
+            <div class="button-group">
+                <a href="{{ url_for('user.logout') }}" class="btn">Logout</a>
+            </div>
         </div>
 
-        <h2>Kundenliste</h2>
-        
         <div class="search-container">
             <form method="post" action="{{ url_for('user.search_customer') }}" class="search-form">
                 <input type="text" name="search" placeholder="Kunden suchen...">
-                <button type="submit">Suchen</button>
-                <a href="{{ url_for('user.user_dashboard') }}" class="button-link">Zurücksetzen</a>
+                <button type="submit" class="btn">Suchen</button>
+                <a href="{{ url_for('user.user_dashboard') }}" class="btn">Zurücksetzen</a>
             </form>
         </div>
 
@@ -60,7 +60,7 @@
         </table>
 
         <div class="footer-links">
-            <a href="{{ url_for('user.add_customer') }}" class="button-link">Neuen Kunden hinzufügen</a>
+            <a href="{{ url_for('user.add_customer') }}" class="btn primary-btn">Neuen Kunden hinzufügen</a>
         </div>
     </div>
 </body>

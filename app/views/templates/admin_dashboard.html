@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="dashboard-container">
         <div class="header">
             <div>
                 <h1>Admin Dashboard</h1>
                 <p>Willkommen, Admin!</p>
             </div>
-            <a href="{{ url_for('user.logout') }}" class="button-link">Logout</a>
+            <div class="button-group">
+                <a href="{{ url_for('user.logout') }}" class="btn">Logout</a>
+            </div>
         </div>
 
-        <h2>Benutzerliste</h2>
-        
         <div class="search-container">
             <form method="post" action="{{ url_for('admin.search_user') }}" class="search-form">
                 <input type="text" name="search" placeholder="Benutzer suchen...">
-                <button type="submit">Suchen</button>
-                <a href="{{ url_for('admin.admin_dashboard') }}" class="button-link">Zurücksetzen</a>
+                <button type="submit" class="btn">Suchen</button>
+                <a href="{{ url_for('admin.admin_dashboard') }}" class="btn">Zurücksetzen</a>
             </form>
         </div>
 
@@ -54,12 +54,8 @@
         </table>
 
         <div class="footer-links">
-            <div class="left-links">
-                <a href="{{ url_for('admin.add_user') }}" class="button-link">Benutzer hinzufügen</a>
-            </div>
-            <div class="right-links">
-                <a href="{{ url_for('admin.config_form') }}" class="button-link">Settings</a>
-            </div>
+            <a href="{{ url_for('admin.add_user') }}" class="btn primary-btn">Benutzer hinzufügen</a>
+            <a href="{{ url_for('admin.config_form') }}" class="btn primary-btn">Settings</a>
         </div>
     </div>
 </body>
