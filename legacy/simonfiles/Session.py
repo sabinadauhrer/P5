@@ -94,3 +94,5 @@ def searchCustomerDBP(search):
 
 def updateUserPW(value,ID):
     Database.updateUserPW(value,ID)
+def updateCustomer(column,value,ID):
+    Database.updateCustomer(column,value,ID)
