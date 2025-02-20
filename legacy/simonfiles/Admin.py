@@ -24,8 +24,8 @@ class Admin():
         Database.seedUser()
     def seedCustomer():
         Database.seedCustomer()
-    def updateDB():
-        Database.updateUser()
+    def updateUser(column,value,ID):
+        Database.updateUser(column,value,ID)
     def newUserT():
         a1=Address(
             input("Country:\n"),
@@ -94,3 +94,4 @@ class Admin():
     def searchUserDBP(search):
         results=Database.searchUserDB(search)
         return results
+    

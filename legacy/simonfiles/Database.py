@@ -253,7 +253,6 @@ def searchCustomerDB(search):
     results=cur.fetchall()
     db.close()
     return results
-
 # --- delete ---    
 def deleteCustomerN(name,firstname,email,phone,iban):
     db=sqlite3.connect('user.db')
@@ -440,13 +439,30 @@ def deleteUserID(UserID):
     except sqlite3.Error as e:
         print(f"an error occurred: {e}")
     db.close()
-    
-def updateUser():
+# --- update ---    
+def updateUser(column,value,ID):
     db=sqlite3.connect('user.db')
-    
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute("""
+                UPDATE User
+                SET {column} = ?
+                WHERE ID = ?;
+                """, (value,ID))
     db.commit()
     db.close()
-    
+
+def updateUserPW(value,ID):
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute("""
+                UPDATE User
+                SET password = ?
+                WHERE ID = ?;
+                """, (value,ID))
+    db.commit()
+    db.close()
 def updateCustomer():
     db=sqlite3.connect('user.db')
     
