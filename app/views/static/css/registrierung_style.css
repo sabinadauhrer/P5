@@ -7,9 +7,9 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 270px;
+
     display: flex;
-    justify-content: center;
+
     align-items: center;
     height: 100vh;
     background: linear-gradient(to right, #f8b5c4, #b5f8da);
