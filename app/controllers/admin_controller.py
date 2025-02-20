@@ -142,3 +142,9 @@ def update_user(user_id):
         user.adminrole = 1 if 'is_admin' in data else 0
         update_user_in_db(user)
     return redirect(url_for('admin.admin_dashboard'))
+
+@admin_bp.route('/admin/search_user', methods=['POST'])
+def search_user():
+    search = request.form['search']
+    users = searchUserDB(search)
+    return render_template('admin_dashboard.html', users=users)
