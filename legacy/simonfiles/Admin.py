@@ -13,10 +13,10 @@ User=User.User
 
 class Admin():
     def __init__(self, User):
-        self.User=User
+        self._User=User
     
     def __str__(self):
-        return f"({self.User})"
+        return f"({self._User})"
         
     def createDB():
         Database.createDB()

@@ -3,73 +3,73 @@ Address=Address.Address
 
 class Person:
     def __init__(self, name,firstname,email,phone,iban, Address=Address):
-        self.name=name
-        self.firstname=firstname
-        self.email=email
-        self.phone=phone
-        self.iban=iban
-        self.Address=Address
+        self._name=name
+        self._firstname=firstname
+        self._email=email
+        self._phone=phone
+        self._iban=iban
+        self._Address=Address
         
     def __str__(self):
-        return f"({self.name}, {self.firstname}, {self.email}, {self.phone}, {self.iban}, {self.Address})"
+        return f"({self._name}, {self._firstname}, {self._email}, {self._phone}, {self._iban}, {self._Address})"
         
     def getName(self):
-        return self.name
+        return self._name
     def setName(self, name):
-        self.name=name
+        self._name=name
     def newName(self):
         self.setName(input("Name:\n"))
             
     def getFirstname(self):
-        return self.firstname
+        return self._firstname
     def setFirstname(self, firstname):
-        self.firstname=firstname
+        self._firstname=firstname
     def newFirstname(self):
         self.setFirstname(input("Firstname:\n"))
             
     def getEmail(self):
-        return self.email
+        return self._email
     def setEmail(self, email):
-        self.email=email
+        self._email=email
     def newEmail(self):
         self.setEmail(input("E-Mail:\n"))
             
     def getPhone(self):
-        return self.phone
+        return self._phone
     def setPhone(self, phone):
-        self.phone=phone
+        self._phone=phone
     def newPhone(self):
         self.setPhone(input("Phonenumber:\n"))
             
     def getIBAN(self):
-        return self.iban
+        return self._iban
     def setIBAN(self, iban):
-        self.iban=iban
+        self._iban=iban
     def newIBAN(self):
         self.setIBAN(input("IBAN:\n"))
     
     def getAddress(self):
-        return self.Address
+        return self._Address
     def setAddress(self, Address=Address):
-        self.Address=Address
+        self._Address=Address
     def getCountry(self):
-        return self.Address.getCountry()
+        return self._Address.getCountry()
     def setCountry(self, country):
-        self.Address.setCountry(country)
+        self._Address.setCountry(country)
     def getZIP(self):
-        return self.Address.getZIP()
+        return self._Address.getZIP()
     def setZIP(self, zip):
-        self.Address.setZIP(zip)
+        self._Address.setZIP(zip)
     def getCity(self):
-        return self.Address.getCity()
+        return self._Address.getCity()
     def setCity(self, city):
-        self.Address.setCity(city)
+        self._Address.setCity(city)
     def getStreet(self):
-        return self.Address.getStreet()
+        return self._Address.getStreet()
     def setStreet(self, street):
-        self.Address.setStreet(street)
+        self._Address.setStreet(street)
     def getSnumber(self):
-        return self.Address.getSnumber()
+        return self._Address.getSnumber()
     def setSnumber(self, snumber):
-        self.Address.setSnumber(snumber)
+        self._Address.setSnumber(snumber)
     
