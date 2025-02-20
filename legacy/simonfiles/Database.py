@@ -476,11 +476,38 @@ def updateCustomer(column,value,ID):
     db.commit()
     db.close()
 
-def updateCustomer():
+def gettablecolumns(db):
+    tables=[]
+    db.execute("PRAGMA foreign_keys = ON;")
+    for row in db.execute("SELECT name FROM sqlite_master WHERE type='table';"):
+        tablename=row[0]
+        columns=[]
+        for columnrow in db.execute(f"PRAGMA table_info({tablename});"):
+            columns.append(columnrow[1])
+        tables.append((tablename, columns))
+    return tables
+
+def updatevalueincolumn(db, columnname, newvalue, idvalue):
+    tables=gettablecolumns(db)
+    for tablename, columns in tables:
+        if columnname in columns:
+            db.execute(f"UPDATE {tablename} SET {columnname} = ? WHERE ID = ?",(newvalue, idvalue))
+            db.commit()
+            print(f"Updated {columnname} in table {tablename} where ID = {idvalue}")
+            return True
+    return False
+
+def updateDB(column, value, ID):
     db=sqlite3.connect('user.db')
-    
-    db.commit()
-    db.close()
+    cur=db.cursor()
+    try:
+        cur.execute("PRAGMA foreign_keys = ON;")
+        if not updatevalueincolumn(cur, column, value, ID):
+            print(f"Column '{column}' not found in any table.")
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+    finally:
+        db.close()
 # --- login ---
 def readLoginDB(username, password):
     db=sqlite3.connect('user.db')
