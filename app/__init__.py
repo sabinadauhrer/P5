@@ -40,5 +40,4 @@ def create_app():
         if request.endpoint and request.endpoint.startswith('admin.') and not session.get('is_admin'):
             return redirect(url_for('user.login'))
 
-
     return app
