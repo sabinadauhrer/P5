@@ -205,24 +205,24 @@ def searchUserDB(search):
     cur=db.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
     cur.execute(
-        """SELECT User.*, Person.*, Address.* 
+        f"""SELECT User.*, Person.*, Address.* 
         FROM User 
         JOIN Person ON User.PersonID = Person.ID
         JOIN Address ON Person.AddressID = Address.ID
-        WHERE User.ID LIKE ? OR 
-        User.username LIKE ? OR 
-        User.PersonID LIKE ? OR
-        Person.name LIKE ? OR
-        Person.firstname LIKE ? OR
-        Person.email LIKE ? OR
-        Person.phone LIKE ? OR
-        Person.iban LIKE ? OR
-        Address.country LIKE ? OR
-        Address.zip LIKE ? OR
-        Address.city LIKE ? OR
-        Address.street LIKE ? OR
-        Address.snumber LIKE ?;
-        """, (search,)*13)
+        WHERE User.ID LIKE {search} OR 
+        User.username LIKE {search} OR 
+        User.PersonID LIKE {search} OR
+        Person.name LIKE {search} OR
+        Person.firstname LIKE {search} OR
+        Person.email LIKE {search} OR
+        Person.phone LIKE {search} OR
+        Person.iban LIKE {search} OR
+        Address.country LIKE {search} OR
+        Address.zip LIKE {search} OR
+        Address.city LIKE {search} OR
+        Address.street LIKE {search} OR
+        Address.snumber LIKE {search};
+        """)
     results=cur.fetchall()
     db.close()
     return results
@@ -232,28 +232,27 @@ def searchCustomerDB(search):
     cur=db.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
     cur.execute(
-        """SELECT Customer.*, Person.*, Address.* 
+        f"""SELECT Customer.*, Person.*, Address.* 
         FROM Customer 
         JOIN Person ON Customer.PersonID = Person.ID
         JOIN Address ON Person.AddressID = Address.ID
-        WHERE Customer.ID LIKE ? OR 
-        Customer.company LIKE ? OR 
-        Customer.PersonID LIKE ? OR
-        Person.name LIKE ? OR
-        Person.firstname LIKE ? OR
-        Person.email LIKE ? OR
-        Person.phone LIKE ? OR
-        Person.iban LIKE ? OR
-        Address.country LIKE ? OR
-        Address.zip LIKE ? OR
-        Address.city LIKE ? OR
-        Address.street LIKE ? OR
-        Address.snumber LIKE ?;
-        """, (search,)*13)
+        WHERE Customer.ID LIKE {search} OR 
+        Customer.company LIKE {search} OR 
+        Customer.PersonID LIKE {search} OR
+        Person.name LIKE {search} OR
+        Person.firstname LIKE {search} OR
+        Person.email LIKE {search} OR
+        Person.phone LIKE {search} OR
+        Person.iban LIKE {search} OR
+        Address.country LIKE {search} OR
+        Address.zip LIKE {search} OR
+        Address.city LIKE {search} OR
+        Address.street LIKE {search} OR
+        Address.snumber LIKE {search};
+        """)
     results=cur.fetchall()
     db.close()
     return results
-
 # --- delete ---    
 def deleteCustomerN(name,firstname,email,phone,iban):
     db=sqlite3.connect('user.db')
@@ -440,13 +439,43 @@ def deleteUserID(UserID):
     except sqlite3.Error as e:
         print(f"an error occurred: {e}")
     db.close()
-    
-def updateUser():
+# --- update ---    
+def updateUser(column,value,ID):
     db=sqlite3.connect('user.db')
-    
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute(f"""
+                UPDATE User
+                SET {column} = ?
+                WHERE ID = ?;
+                """, (value,ID))
     db.commit()
     db.close()
-    
+
+def updateUserPW(value,ID):
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute("""
+                UPDATE User
+                SET password = ?
+                WHERE ID = ?;
+                """, (value,ID))
+    db.commit()
+    db.close()
+
+def updateCustomer(column,value,ID):
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute(f"""
+                UPDATE Customer
+                SET {column} = ?
+                WHERE ID = ?;
+                """, (value,ID))
+    db.commit()
+    db.close()
+
 def updateCustomer():
     db=sqlite3.connect('user.db')
     

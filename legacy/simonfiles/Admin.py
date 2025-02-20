@@ -20,12 +20,17 @@ class Admin():
         
     def createDB():
         Database.createDB()
+        
     def seedUser():
         Database.seedUser()
     def seedCustomer():
         Database.seedCustomer()
-    def updateDB():
-        Database.updateUser()
+        
+    def updateUser(column,value,ID):
+        Database.updateUser(column,value,ID)
+    def updateCustomer(column,value,ID):
+        Database.updateCustomer(column,value,ID)
+        
     def newUserT():
         a1=Address(
             input("Country:\n"),
@@ -81,6 +86,11 @@ class Admin():
             input("Company:\n"),
             p1
             )   
+    def newCustomerP(country,zip,city,street,snumber,name,firstname,email,phone,iban,company):
+        a1=Address(country,zip,city,street,snumber)
+        p1=Person(name,firstname,email,phone,iban,a1)
+        c1=Customer(company,p1)
+        Database.seedCustomerComplete(c1,p1,a1)
     def deleteCustomerNP(name,firstname,email,phone,iban):
         Database.deleteCustomerN(name,firstname,email,phone,iban)
     def deleteCustomerIDP(ID):
@@ -94,3 +104,4 @@ class Admin():
     def searchUserDBP(search):
         results=Database.searchUserDB(search)
         return results
+    
