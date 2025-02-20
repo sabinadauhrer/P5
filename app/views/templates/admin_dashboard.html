@@ -14,14 +14,14 @@
                 <p>Willkommen, Admin!</p>
             </div>
             <div class="button-group">
-                <a href="{{ url_for('user.logout') }}" class="btn">Logout</a>
+                <a href="{{ url_for('user.logout') }}" class="btn primary-btn">Logout</a>
             </div>
         </div>
 
         <div class="search-container">
             <form method="post" action="{{ url_for('admin.search_user') }}" class="search-form">
                 <input type="text" name="search" placeholder="Benutzer suchen...">
-                <button type="submit" class="btn">Suchen</button>
+                <button type="submit" class="btn primary-btn">Suchen</button>
                 <a href="{{ url_for('admin.admin_dashboard') }}" class="btn">Zurücksetzen</a>
             </form>
         </div>
