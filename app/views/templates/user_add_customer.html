@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Neuen Kunden hinzufügen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Bearbeitung_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Neuen Kunden hinzufügen</h1>
+        <form method="post" action="{{ url_for('user.add_customer') }}">
+            <!-- Personendaten -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Vorname:</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefon:</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="iban">IBAN:</label>
+                <input type="text" class="form-control" id="iban" name="iban" required>
+            </div>
+            <!-- Firmendaten -->
+            <div class="form-group">
+                <label for="company">Firma:</label>
+                <input type="text" class="form-control" id="company" name="company" required>
+            </div>
+            <!-- Adressdaten -->
+            <div class="form-group">
+                <label for="country">Land:</label>
+                <input type="text" class="form-control" id="country" name="country" required>
+            </div>
+            <div class="form-group">
+                <label for="zip">PLZ:</label>
+                <input type="text" class="form-control" id="zip" name="zip" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Stadt:</label>
+                <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="street">Straße:</label>
+                <input type="text" class="form-control" id="street" name="street" required>
+            </div>
+            <div class="form-group">
+                <label for="snumber">Hausnummer:</label>
+                <input type="text" class="form-control" id="snumber" name="snumber" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Kunden hinzufügen</button>
+            <a href="{{ url_for('user.user_dashboard') }}" class="btn btn-secondary">Zurück zum Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>

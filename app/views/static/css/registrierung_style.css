@@ -1,0 +1,93 @@
+@media (max-width: 768px) {
+    form {
+        width: 95vw;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 270px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #f8b5c4, #b5f8da);
+    flex-direction: column;
+}
+
+/* Überschrift */
+h1 {
+    color: #555;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Formular-Container */
+form {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 10px;
+    width: 90vw;
+    max-width: 1200px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-size: 14px; 
+    color: #555; 
+    margin-top: 10px; 
+    text-align: left; 
+}
+
+/* Eingabefelder */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; 
+    min-width: 300px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 14px; 
+    margin-top: 5px;
+}
+
+label[for="is_admin"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px; 
+}
+
+input[type="checkbox"]#is_admin {
+    display: inline-block;
+    vertical-align: middle; 
+}
+
+
+/* Buttons */
+input[type="submit"],
+button {
+    width: 100%; 
+    padding: 10px;
+    border: none; 
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer; 
+    margin-top: 15px; 
+    margin-bottom: 20px; 
+}
+
+/* Registrieren-Button */
+input[type="submit"] {
+    background: #fff; 
+    color: #555; 
+}
+
+input[type="submit"]:hover {
+    background: #bcc2be;
+}

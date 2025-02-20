@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kunden bearbeiten</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Bearbeitung_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Kunden bearbeiten</h1>
+        <form method="post" action="{{ url_for('user.edit_customer', customer_id=customer_id) }}">
+            <!-- Personendaten -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ customer[0] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Vorname:</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="{{ customer[1] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ customer[2] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefon:</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{ customer[3] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="iban">IBAN:</label>
+                <input type="text" class="form-control" id="iban" name="iban" value="{{ customer[4] }}" required>
+            </div>
+            <!-- Firmendaten -->
+            <div class="form-group">
+                <label for="company">Firma:</label>
+                <input type="text" class="form-control" id="company" name="company" value="{{ customer[5] }}" required>
+            </div>
+            <!-- Adressdaten -->
+            <div class="form-group">
+                <label for="country">Land:</label>
+                <input type="text" class="form-control" id="country" name="country" value="{{ customer[6] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="zip">PLZ:</label>
+                <input type="text" class="form-control" id="zip" name="zip" value="{{ customer[7] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Stadt:</label>
+                <input type="text" class="form-control" id="city" name="city" value="{{ customer[8] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="street">Straße:</label>
+                <input type="text" class="form-control" id="street" name="street" value="{{ customer[9] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="snumber">Hausnummer:</label>
+                <input type="text" class="form-control" id="snumber" name="snumber" value="{{ customer[10] }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Kunden aktualisieren</button>
+            <a href="{{ url_for('user.user_dashboard') }}" class="btn btn-secondary">Zurück zum Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,44 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
-    <p>Willkommen, Admin!</p>
-    <a href="{{ url_for('user.logout') }}">Logout</a>
-    <h2>Benutzerliste</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Benutzername</th>
-                <th>Email</th>
-                <th>Rolle</th>
-                <th>Aktionen</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ user.person.email }}</td>  <!-- E-Mail-Adresse hier anzeigen -->
-                <td>{{ 'Admin' if user.adminrole else 'Benutzer' }}</td>
-                <td>
-                    <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="btn btn-primary">Bearbeiten</a>
-                    <a href="{{ url_for('admin.delete_user', user_id=user.id) }}" class="btn btn-danger" onclick="return confirm('Bist du sicher, dass du diesen Benutzer löschen möchtest?');">Löschen</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <br>
-    <a href="{{ url_for('admin.add_user') }}">
-        <button>Benutzer hinzufügen</button>
-    </a>
-    <a href="{{ url_for('admin.config_form') }}">
-        <button>Settings</button>
-    </a>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <p>Willkommen, Admin!</p>
+            </div>
+            <a href="{{ url_for('user.logout') }}" class="button-link">Logout</a>
+        </div>
+
+        <h2>Benutzerliste</h2>
+        
+        <div class="search-container">
+            <form method="post" action="{{ url_for('admin.search_user') }}" class="search-form">
+                <input type="text" name="search" placeholder="Benutzer suchen...">
+                <button type="submit">Suchen</button>
+                <a href="{{ url_for('admin.admin_dashboard') }}" class="button-link">Zurücksetzen</a>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Benutzername</th>
+                    <th>Email</th>
+                    <th>Rolle</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.person.email }}</td>
+                    <td>{{ 'Admin' if user.adminrole else 'Benutzer' }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('admin.edit_user', user_id=user.id) }}">Bearbeiten</a>
+                        <a href="{{ url_for('admin.delete_user', user_id=user.id) }}" 
+                           onclick="return confirm('Bist du sicher, dass du diesen Benutzer löschen möchtest?');">
+                           Löschen
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="footer-links">
+            <div class="left-links">
+                <a href="{{ url_for('admin.add_user') }}" class="button-link">Benutzer hinzufügen</a>
+            </div>
+            <div class="right-links">
+                <a href="{{ url_for('admin.config_form') }}" class="button-link">Settings</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,13 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
 </head>
 <body>
-    <h1>User Dashboard</h1>
-    <p>Willkommen, Benutzer!</p>
-    <a href="{{ url_for('user.logout') }}">Logout</a>
-    <!-- Weitere Inhalte hier -->
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>User Dashboard</h1>
+                <p>Willkommen, {{ user.username }}!</p>
+            </div>
+            <a href="{{ url_for('user.logout') }}" class="button-link">Logout</a>
+        </div>
+
+        <h2>Kundenliste</h2>
+        
+        <div class="search-container">
+            <form method="post" action="{{ url_for('user.search_customer') }}" class="search-form">
+                <input type="text" name="search" placeholder="Kunden suchen...">
+                <button type="submit">Suchen</button>
+                <a href="{{ url_for('user.user_dashboard') }}" class="button-link">Zurücksetzen</a>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Vorname</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Firma</th>
+                    <th>Adresse</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.person.name }}</td>
+                    <td>{{ customer.person.firstname }}</td>
+                    <td>{{ customer.person.email }}</td>
+                    <td>{{ customer.person.phone }}</td>
+                    <td>{{ customer.company }}</td>
+                    <td>{{ customer.person.address.street }} {{ customer.person.address.snumber }}, {{ customer.person.address.zip }} {{ customer.person.address.city }}, {{ customer.person.address.country }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('user.edit_customer', customer_id=customer.person.id) }}">Bearbeiten</a>
+                        <a href="{{ url_for('user.delete_customer', customer_id=customer.person.id) }}" 
+                           onclick="return confirm('Bist du sicher, dass du diesen Kunden löschen möchtest?');">
+                           Löschen
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="footer-links">
+            <a href="{{ url_for('user.add_customer') }}" class="button-link">Neuen Kunden hinzufügen</a>
+        </div>
+    </div>
 </body>
 </html>

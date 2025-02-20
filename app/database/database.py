@@ -4,6 +4,8 @@ from app.models.user import User
 from app.models.person import Person
 from app.models.address import Address
 from app.models.hash import hash_password
+from app.models.customer import Customer
+from flask import session
 
 def createDB():
     db = sqlite3.connect('user.db')
@@ -320,3 +322,99 @@ def delete_user_by_id(user_id):
         print(f"An error occurred: {e}")
     finally:
         db.close()
+
+def searchUserDB(search):
+    db = sqlite3.connect('user.db')
+    cur = db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute(
+        """SELECT User.ID, User.username, User.password, User.adminrole, 
+                  Person.name, Person.firstname, Person.email, Person.phone, Person.iban, 
+                  Address.country, Address.zip, Address.city, Address.street, Address.snumber 
+        FROM User 
+        JOIN Person ON User.PersonID = Person.ID
+        JOIN Address ON Person.AddressID = Address.ID
+        WHERE User.ID LIKE ? OR 
+        User.username LIKE ? OR 
+        User.PersonID LIKE ? OR
+        Person.name LIKE ? OR
+        Person.firstname LIKE ? OR
+        Person.email LIKE ? OR
+        Person.phone LIKE ? OR
+        Person.iban LIKE ? OR
+        Address.country LIKE ? OR
+        Address.zip LIKE ? OR
+        Address.city LIKE ? OR
+        Address.street LIKE ? OR
+        Address.snumber LIKE ?;
+        """, (f'%{search}%',)*13)
+    results = cur.fetchall()
+    db.close()
+
+    users = []
+    for row in results:
+        address = Address(row[9], row[10], row[11], row[12], row[13])
+        person = Person(row[4], row[5], row[6], row[7], row[8], address)
+        user = User(row[0], person, row[1], row[2], row[3])
+        users.append(user)
+    return users
+
+def get_customers():
+    db = sqlite3.connect('user.db')
+    cursor = db.cursor()
+    cursor.execute("""
+        SELECT c.ID, c.company, p.name, p.firstname, p.email, p.phone, p.iban, a.country, a.zip, a.city, a.street, a.snumber, p.ID
+        FROM Customer c
+        JOIN Person p ON c.PersonID = p.ID
+        JOIN Address a ON p.AddressID = a.ID
+    """)
+    customers = []
+    for row in cursor.fetchall():
+        address = Address(row[7], row[8], row[9], row[10], row[11])
+        person = Person(row[2], row[3], row[4], row[5], row[6], address, row[12])
+        customer = Customer(person, row[1])
+        customers.append(customer)
+    db.close()
+    return customers
+
+def get_current_user():
+    user_id = session.get('user_id')
+    if user_id:
+        db = sqlite3.connect('user.db')
+        cursor = db.cursor()
+        cursor.execute("SELECT username FROM User WHERE ID = ?", (user_id,))
+        user = cursor.fetchone()
+        db.close()
+        if user:
+            return {'username': user[0]}
+    return None
+
+def get_customers_from_db(search_query=None):
+    db = sqlite3.connect('user.db')
+    cursor = db.cursor()
+    
+    if search_query:
+        cursor.execute("""
+            SELECT c.ID, c.company, p.name, p.firstname, p.email, p.phone, p.iban, a.country, a.zip, a.city, a.street, a.snumber, p.ID
+            FROM Customer c
+            JOIN Person p ON c.PersonID = p.ID
+            JOIN Address a ON p.AddressID = a.ID
+            WHERE p.name LIKE ? OR p.firstname LIKE ? OR p.email LIKE ? OR p.phone LIKE ? OR c.company LIKE ?
+        """, ('%' + search_query + '%', '%' + search_query + '%', '%' + search_query + '%', '%' + search_query + '%', '%' + search_query + '%'))
+    else:
+        cursor.execute("""
+            SELECT c.ID, c.company, p.name, p.firstname, p.email, p.phone, p.iban, a.country, a.zip, a.city, a.street, a.snumber, p.ID
+            FROM Customer c
+            JOIN Person p ON c.PersonID = p.ID
+            JOIN Address a ON p.AddressID = a.ID
+        """)
+    
+    customers = []
+    for row in cursor.fetchall():
+        address = Address(row[7], row[8], row[9], row[10], row[11])
+        person = Person(row[2], row[3], row[4], row[5], row[6], address, row[12])
+        customer = Customer(person, row[1])
+        customers.append(customer)
+    
+    db.close()
+    return customers
