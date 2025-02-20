@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Benutzer bearbeiten</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Bearbeitung_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Benutzer bearbeiten</h1>
+        <form method="POST" action="{{ url_for('admin.update_user', user_id=user.id) }}">
+            <div class="form-group">
+                <label for="username">Benutzername:</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ user.person.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Vorname:</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="{{ user.person.firstname }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.person.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefon:</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{ user.person.phone }}" required>
+            </div>
+            <div class="form-group">
+                <label for="iban">IBAN:</label>
+                <input type="text" class="form-control" id="iban" name="iban" value="{{ user.person.iban }}" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Land:</label>
+                <input type="text" class="form-control" id="country" name="country" value="{{ user.person.address.country }}" required>
+            </div>
+            <div class="form-group">
+                <label for="zip">PLZ:</label>
+                <input type="text" class="form-control" id="zip" name="zip" value="{{ user.person.address.zip }}" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Stadt:</label>
+                <input type="text" class="form-control" id="city" name="city" value="{{ user.person.address.city }}" required>
+            </div>
+            <div class="form-group">
+                <label for="street">Straße:</label>
+                <input type="text" class="form-control" id="street" name="street" value="{{ user.person.address.street }}" required>
+            </div>
+            <div class="form-group">
+                <label for="snumber">Hausnummer:</label>
+                <input type="text" class="form-control" id="snumber" name="snumber" value="{{ user.person.address.snumber }}" required>
+            </div>
+            <div class="form-group">
+                <label for="is_admin">Adminrolle:</label>
+                <input type="checkbox" id="is_admin" name="is_admin" {% if user.adminrole %}checked{% endif %}>
+            </div>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+            <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary">Abbrechen</a>
+        </form>
+    </div>
+</body>
+</html>
