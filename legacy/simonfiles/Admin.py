@@ -30,7 +30,8 @@ class Admin():
         Database.updateUser(column,value,ID)
     def updateCustomer(column,value,ID):
         Database.updateCustomer(column,value,ID)
-        
+    def updateDB(column, value, ID):
+        Database.updateDB(column, value, ID)
     def newUserT():
         a1=Address(
             input("Country:\n"),
