@@ -19,15 +19,19 @@ Admin=Admin.Admin
 def main():
     try:
         while True:
-            choice=input("create Database (d): \nseed Database (s): \nupdate User (u): \ncancel (c): \nlogin session (l):\nnew user (n):\ndelete user (e):\nsearch User (q):\n")
-            if choice=='d'or choice=='s'or choice=='u'or choice=='c'or choice=='l'or choice=='n'or choice=='e'or choice=='q':
+            choice=input("create Database (d): \nseed Database (s): \nupdate User (u): \ncancel (c): \nlogin session (l):\nnew user (n):\ndelete user (e):\nsearch User (q):\nupdate pw (p):\n")
+            if choice=='d'or choice=='s'or choice=='u'or choice=='c'or choice=='l'or choice=='n'or choice=='e'or choice=='q'or choice=='p':
                     break
         if choice=='d':
             Database.createDB()
         elif choice=='s':
             Database.seedUser()
         elif choice=='u':
-            Database.updateUser()
+            Admin.updateUser(
+                input("column:\n"),
+                input("value:\n"),
+                input("ID:\n")
+                )
         elif choice=='l':
             Session.loginUserT()
         elif choice=='n':
@@ -36,6 +40,11 @@ def main():
             Admin.deleteUserNT()
         elif choice=='q':
             Admin.searchUserDBT()
+        elif choice=='p':
+            Session.updateUserPW(
+                input("pw:\n"),
+                input("ID:\n")
+            )
     except Exception as e:
         print("Es ist folgender Fehler aufgetreten: \n"+e.args[0])
     except TypeError as te:
