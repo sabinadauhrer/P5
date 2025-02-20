@@ -463,6 +463,18 @@ def updateUserPW(value,ID):
                 """, (value,ID))
     db.commit()
     db.close()
+    
+def updateUserAdmin(value,ID):
+    db=sqlite3.connect('user.db')
+    cur=db.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
+    cur.execute("""
+                UPDATE User
+                SET adminrole = ?
+                WHERE ID = ?;
+                """, (value,ID))
+    db.commit()
+    db.close()
 
 def updateCustomer(column,value,ID):
     db=sqlite3.connect('user.db')

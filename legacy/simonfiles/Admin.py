@@ -28,6 +28,8 @@ class Admin():
         
     def updateUser(column,value,ID):
         Database.updateUser(column,value,ID)
+    def updateUserAdmin(value,ID):
+        Database.updateUserAdmin(value,ID)
     def updateCustomer(column,value,ID):
         Database.updateCustomer(column,value,ID)
     def updateDB(column, value, ID):
