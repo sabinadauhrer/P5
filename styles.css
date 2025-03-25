@@ -1,0 +1,121 @@
+/* Allgemeines Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right, #f8b5c4, #b5f8da);
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #444;
+}
+
+.login-section, .form-section, .table-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+}
+
+.button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 1em;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+.delete-btn {
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #c0392b;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .button {
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    .login-section, .form-section, .table-section {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1, h2 {
+        font-size: 1.5em;
+    }
+
+    .button {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+
+    table th, table td {
+        padding: 6px;
+    }
+
+    .login-section, .form-section, .table-section {
+        padding: 8px;
+    }
+}
