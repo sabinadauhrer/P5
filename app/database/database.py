@@ -363,7 +363,7 @@ def get_customers():
     db = sqlite3.connect('user.db')
     cursor = db.cursor()
     cursor.execute("""
-        SELECT c.ID, c.company, p.name, p.firstname, p.email, p.phone, p.iban, a.country, a.zip, a.city, a.street, a.snumber, p.ID
+        SELECT c.ID, c.company, p.firstname, p.name, p.email, p.phone, p.iban, a.country, a.zip, a.city, a.street, a.snumber, p.ID
         FROM Customer c
         JOIN Person p ON c.PersonID = p.ID
         JOIN Address a ON p.AddressID = a.ID
